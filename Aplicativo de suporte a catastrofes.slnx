@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Aplicativo de suporte a catastrofes/Aplicativo de suporte a catastrofes.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+  <Project Path="Web API/Web API.csproj" />
+</Solution>
