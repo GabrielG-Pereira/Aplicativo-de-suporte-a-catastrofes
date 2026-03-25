@@ -1,6 +1,21 @@
-﻿/*#if (SampleContent)*/
+﻿/* Importando a Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/*#if (SampleContent)*/
+:root {
+    --primary-yellow: #EB9B00;
+    --dark-blue: #002F52;
+    --bg-light: #F0F4F8;
+    --white: #FFFFFF;
+}
+
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    -webkit-font-smoothing: antialiased;
 }
 
 a, .btn-link {

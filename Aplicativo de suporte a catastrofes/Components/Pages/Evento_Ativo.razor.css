@@ -1,0 +1,89 @@
+﻿/* Component-scoped styles for Evento_Ativo.razor (no global selectors here) */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.icons-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-vector {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.menu-icon {
+    width: 28px;
+    height: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.menu-icon span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background-color: var(--dark-blue);
+    border-radius: 10px;
+}
+
+.section-title {
+    color: var(--primary-yellow);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 25px 20px 15px 20px;
+    text-transform: uppercase;
+}
+
+.card {
+    background: var(--white);
+    border-radius: 25px;
+    padding: 25px;
+    margin: 0 20px 20px 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    color: var(--dark-blue);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.card-info {
+    font-size: 0.9rem;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.btn-more {
+    align-self: flex-end;
+    background-color: var(--primary-yellow);
+    color: var(--white);
+    border: none;
+    padding: 10px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-top: 5px;
+    transition: background 0.2s;
+}
+
+.btn-more:hover {
+    filter: brightness(0.9);
+}
