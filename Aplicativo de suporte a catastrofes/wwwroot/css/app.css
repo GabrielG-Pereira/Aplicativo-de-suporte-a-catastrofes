@@ -1,6 +1,12 @@
 ﻿/* Importando a Poppins do Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/* O resto do seu CSS global (do menu, etc) continua aqui embaixo normal... */
+
+
+
 /*#if (SampleContent)*/
 :root {
     --primary-yellow: #EB9B00;
@@ -101,3 +107,30 @@ h1:focus {
         padding-left: env(safe-area-inset-left);
     }
 }
+
+/* Estilos do Cabeçalho */
+.cabecalho-topo {
+    display: flex;
+    justify-content: space-between; /* Joga um lado para a esquerda e outro para a direita */
+    align-items: center; /* Centraliza verticalmente */
+    padding: 15px 20px;
+    background-color: #ffffff; /* Fundo branco ou a cor que preferir */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra leve embaixo */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.icones-direita {
+    display: flex;
+    gap: 15px; /* Espaço entre o sino e o perfil */
+}
+
+/* Tira as bordas feias dos botões */
+.btn-menu-hamburguer, .btn-notificacao, .btn-perfil {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #002F52; /* Cor azul escura dos ícones */
+}
+

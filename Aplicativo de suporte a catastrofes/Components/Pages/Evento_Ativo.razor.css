@@ -1,5 +1,6 @@
 ﻿/* Component-scoped styles for Evento_Ativo.razor (no global selectors here) */
 
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -47,6 +48,8 @@
     text-transform: uppercase;
 }
 
+
+
 .card {
     background: var(--white);
     border-radius: 25px;
@@ -86,4 +89,29 @@
 
 .btn-more:hover {
     filter: brightness(0.9);
+}
+
+.container-pagina {
+    position: relative; /* Necessário para o top e left do texto funcionarem */
+    min-height: 100vh; /* Garante que a página tenha altura para testar */
+}
+
+/*estilo do eventos ativos*/
+.texto-destaque {
+    /* Posicionamento e Tamanho (do seu design) */
+    position: absolute;
+    width: 154px;
+    height: 27px;
+    top: 99px;
+    left: 28px;
+    /* Tipografia */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+    text-align: center;
+    opacity: 1;
+    /* Cores */
+    /* Assumindo que o #EB9B00 seja a cor do texto. Se for uma caixa de fundo laranja com texto dentro, mantenha background-color e adicione uma cor para o texto */
+    color: #EB9B00;
 }

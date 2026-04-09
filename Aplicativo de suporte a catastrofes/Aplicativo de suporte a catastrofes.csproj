@@ -11,6 +11,8 @@
             The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
             either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
         <!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+		
+		<AssemblyName>AppCatastrofes</AssemblyName>
 
         <OutputType>Exe</OutputType>
         <RootNamespace>Aplicativo_de_suporte_a_catastrofes</RootNamespace>
@@ -56,6 +58,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Remove="Components\Layout\MainLayout.razor" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Components\Layout\MainLayout.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components" Version="9.0.9" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="$(MauiVersion)" />
@@ -64,6 +74,14 @@
 
     <ItemGroup>
       <Folder Include="wwwroot\imagem\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiCss Include="Components\Layout\MainLayout.razor.css" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <RazorComponent Include="Components\Layout\MainLayout.razor" />
     </ItemGroup>
 
 </Project>
