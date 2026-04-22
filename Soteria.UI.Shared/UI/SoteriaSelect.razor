@@ -1,0 +1,21 @@
+﻿<div class="input-group">
+    <label>@Label</label>
+    <select @onchange="@(async (e) => { SelectedValue = e.Value?.ToString() ?? ""; await SelectedValueChanged.InvokeAsync(SelectedValue); })">
+        @if (Options != null)
+        {
+            @foreach (var option in Options)
+            {
+                <option value="@option">@option</option>
+            }
+        }
+    </select>
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "";
+    
+    [Parameter] public List<string>? Options { get; set; }
+
+    [Parameter] public string SelectedValue { get; set; } = "";
+    [Parameter] public EventCallback<string> SelectedValueChanged { get; set; }
+}

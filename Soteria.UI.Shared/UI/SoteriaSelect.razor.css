@@ -1,0 +1,34 @@
+﻿.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    .input-group label {
+        color: var(--gradiente-azul);
+        font-family: var(--font-padrao);
+        font-size: var(--font-pequeno-tamanho);
+        font-weight: var(--font-pequeno-peso);
+        margin-bottom: 8px;
+    }
+
+    .input-group select {
+        border: 1.5px solid var(--azul-escuro);
+        border-radius: 10px;
+        padding: 12px;
+        outline: none;
+        font-family: var(--font-padrao);
+        font-size: var(--font-pequeno-tamanho);
+        font-weight: var(--font-pequeno-peso);
+        
+        background-color: white;
+        cursor: pointer;
+        /* Remove a aparência padrão do sistema em alguns browsers */
+        appearance: none;
+        -webkit-appearance: none;
+        /* Ícone customizado de seta (opcional, ou use o padrão do browser) */
+        background-image: url('data:image/svg+xml;charset=US-ASCII,<svg%20xmlns="http://www.w3.org/2000/svg"%20width="24"%20height="24"%20viewBox="0%200%2024%2024" fill="none" stroke="%232c3e50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline%20points="6%209%2012%2015%2018%209"></polyline></svg>');
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 16px;
+    }

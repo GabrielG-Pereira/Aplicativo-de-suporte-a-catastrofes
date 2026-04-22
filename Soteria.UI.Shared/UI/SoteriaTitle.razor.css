@@ -1,0 +1,8 @@
+﻿.soteria-title {
+    color: var(--amarelo);
+    font-family: var(--font-padrao);
+    font-size: var(--font-titulo-tamanho);
+    font-weight: var(--font-titulo-peso);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}

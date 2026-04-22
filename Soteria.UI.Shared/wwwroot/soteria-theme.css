@@ -1,0 +1,15 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+    --gradiente-azul: linear-gradient(90deg, #002F52 0%, #326589 100%);
+    --amarelo: #EB9B00;
+    --branco: #FFFFFF;
+    --cor-fundo: #EEF1F8;
+    --preto: #000000;
+    --azul-escuro: #2c3e50;
+    --font-padrao: 'Poppins', sans-serif;
+    --font-titulo-tamanho: 1.2rem;
+    --font-titulo-peso: 700;
+    --font-pequeno-tamanho: 0.9rem;
+    --font-pequeno-peso: 400;
+}

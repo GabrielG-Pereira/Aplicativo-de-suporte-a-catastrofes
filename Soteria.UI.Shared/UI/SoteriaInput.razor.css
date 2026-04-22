@@ -1,0 +1,26 @@
+﻿/* Grupo que contém Label e Input */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+    /* Texto acima do campo (Nome  */
+    .input-group label {
+        color: var(--gradiente-azul);
+        font-family: var(--font-padrao);
+        font-size: var(--font-pequeno-tamanho);
+        font-weight: var(--font-pequeno-peso);
+        margin-bottom: 8px;
+    }
+
+    /* O campo de texto em si */
+    .input-group input {
+        border: 1.5px solid var(--azul-escuro);
+        border-radius: 10px;
+        padding: 12px;
+        outline: none;
+        font-family: var(--font-padrao);
+        font-size: var(--font-pequeno-tamanho);
+        font-weight: var(--font-pequeno-peso);
+    }

@@ -1,0 +1,17 @@
+﻿<div class="input-group">
+    <label>@Label</label>
+    <input type="@Type"
+           value="@Value"
+           @oninput="@(async (e) => { Value = e.Value?.ToString() ?? ""; await ValueChanged.InvokeAsync(Value); })"
+           placeholder="@Placeholder" />
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = ""; // Permite eu passar o valor do Label
+    [Parameter] public string Placeholder { get; set; } = ""; 
+    [Parameter] public string Type { get; set; } = "text"; // Se não selecionado, a entrada vai ser do tipo texto
+    
+    // Para capturar o que o usuário digita
+    [Parameter] public string Value { get; set; } = ""; // Variavel que guarda o valor de entrada
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+}
