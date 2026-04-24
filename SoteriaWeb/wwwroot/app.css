@@ -6,7 +6,7 @@
     background-color: var(--cor-fundo);
     min-height: 100vh;
 }
-
+                             
 /* O "Card" branco com bordas arredondadas */
 .form-card {
     background-color: white;

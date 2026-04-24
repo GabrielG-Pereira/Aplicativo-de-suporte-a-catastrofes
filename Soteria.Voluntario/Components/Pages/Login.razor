@@ -1,0 +1,20 @@
+﻿@page "/"
+
+<div class="page-container">
+    <div class="form-card">
+
+        <SoteriaInput Label="Usuário" />
+        <SoteriaInput Label="Senha" />
+        <SoteriaButton Text="Entrar" OnClick="ProcessarLogin" />
+        <SoteriaText Text="Não possui uma conta? Cadastre-se agora" />
+    </div>
+</div>
+
+@code {
+
+    private void ProcessarLogin(){
+    
+        Console.WriteLine("BOTAO CLICADO");
+    }
+   
+}
