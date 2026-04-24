@@ -1,0 +1,55 @@
+/* A caixa branca com sombra suave */
+.cartao-abrigo {
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+    max-width: 320px;
+    background-color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte limpa do sistema */
+}
+
+/* O título azul escuro */
+.titulo-abrigo {
+    color: #002A4A;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Organiza o ícone e os textos lado a lado */
+.info-linha {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* O quadradinho cinza claro atrás do ícone */
+.icone-fundo {
+    background-color: #F4F5F6;
+    border-radius: 10px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Empilha a palavra "Distância" em cima do "5km" */
+.textos {
+    display: flex;
+    flex-direction: column;
+}
+
+.rotulo {
+    color: #002A4A;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.valor {
+    color: #8C9CA9;
+    font-size: 14px;
+}
+

@@ -1,5 +1,5 @@
 ﻿.soteria-button {
-    background-color: var(--amarelo);
+    background-color: #e67e22; /* mesma cor que ":hover", por enquanto*/
     color: white;
     width: 100%;
     padding: 15px;
@@ -14,7 +14,7 @@
 
 /* Efeito ao passar o mouse */
 .soteria-button:hover {
-    background-color: #e67e22;
+    background-color: #D18A00;
 }
 
     /* Efeito ao clicar */

@@ -3,7 +3,9 @@
     <Deploy Solution="Debug|*" />
   </Project>
   <Project Path="Soteria.Admin/Soteria.Admin.csproj" Id="2b09dc71-7009-4ea9-bc5d-cd48b69308db" />
-  <Project Path="Soteria.Doador/Soteria.Doador.csproj" Id="59745148-1828-40f6-8674-05b16c6d74df" />
+  <Project Path="Soteria.Doador/Soteria.Doador.csproj" Id="59745148-1828-40f6-8674-05b16c6d74df">
+    <Deploy Solution="Debug|*" />
+  </Project>
   <Project Path="Soteria.UI.Shared/Soteria.UI.Shared.csproj" Id="6ef21e03-1340-4375-9f2a-c0b1f57b6d4c" />
   <Project Path="Soteria.Voluntario/Soteria.Voluntario.csproj" Id="abd31ff9-d8d7-4247-b59e-7315a4d1e52c" />
   <Project Path="SoteriaWeb/Soteria.Public.csproj" Id="6b0811c0-3571-4b72-8975-88d4ddf36bfc" />
