@@ -1,0 +1,15 @@
+Soteria - Plataforma Integrada de Resposta a Desastres
+📂 Estrutura do Repositório e Versionamento
+O projeto foi segmentado em múltiplos sub-projetos para garantir escalabilidade e atender ao requisito de independência de serviços.
+💻 Interfaces Web
+Soteria.Admin: Painel de Gestão (Administradores e Gestores). Interface para controle de eventos, pontos de coleta e validação de voluntários.
+Soteria.Public: Portal público para cadastro de novos voluntários e informações gerais. Separado para suportar altos picos de tráfego.
+📱 Aplicativos (Mobile)
+Soteria.Voluntario: Interface para voluntários já cadastrados receberem convocações, aceitarem missões e visualizarem áreas de risco.
+Soteria.Doador: Interface para o público geral localizar pontos de coleta próximos e verificar demandas urgentes.
+⚙️ Backend e Compartilhamento
+Web API: Núcleo do sistema (C#). Gerencia a lógica de negócio e persistência de dados.
+Soteria.UI.Shared: Razor Class Library (RCL). Contém todos os componentes visuais padronizados (botões, inputs, títulos) e CSS global, compartilhados entre todos os projetos Web e Mobile.
+API Arguments: Modelos de dados, DTOs e entidades de banco de dados compartilhadas entre a API e as interfaces.
+⚠️ Legado (Não utilizar)
+Aplicativo de suporte a catastrofes: Pasta descontinuada. Contém o protótipo monolítico inicial. Não deve ser utilizada para novas implementações.

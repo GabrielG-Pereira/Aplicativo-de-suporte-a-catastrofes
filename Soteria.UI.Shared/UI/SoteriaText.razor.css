@@ -1,0 +1,7 @@
+﻿.soteria-text {
+    color: var(--gradiente-azul);
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    font-weight: var(--font-pequeno-peso);
+    margin-bottom: 30px;
+}
