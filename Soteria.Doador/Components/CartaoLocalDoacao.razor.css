@@ -10,8 +10,10 @@
 
 /* O título azul escuro */
 .titulo-abrigo {
-    color: #002A4A;
+    font-family: "Poppins", sans-serif;
+    color: #002F52;
     font-weight: 700;
+    font-style: normal;
     font-size: 18px;
     margin-top: 0;
     margin-bottom: 20px;
