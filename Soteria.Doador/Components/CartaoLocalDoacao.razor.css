@@ -45,7 +45,11 @@
 }
 
 .rotulo {
-    color: #002A4A;
+    font-family: "Poppins", sans-serif;
+    /*    color: linear-gradient(to right, #002F52, #326589);
+        30_04_26: O gradiente não funciona em texto, então usei a cor sólida do azul escuro para manter a consistência visual.
+    */
+    color: #002F52;
     font-size: 14px;
     font-weight: 500;
 }
