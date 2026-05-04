@@ -2,10 +2,9 @@
 
 @inject NavigationManager NavManager
 
+@* fazer um "cartao dinamico", que ao ser solicitado com TAL texto, título, info, aparece *@
 <div class="cartao-local-doacao">
-    
     <h3 class="titulo-abrigo">Igreja São Luiz</h3>
-
     <div class="info-linha">
         <div class="icone-fundo">
             <!--<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#002A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -33,10 +32,8 @@
             <span class="valor">Fixo</span>
         </div>
     </div>
-
     @* <button class="botao-detalhes">Ver detalhes</button> *@
     <SoteriaButton Text="Ver detalhes" OnClick="AbrirPaginaDemandas" />
-
 </div>
 
 
