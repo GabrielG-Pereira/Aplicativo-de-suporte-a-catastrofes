@@ -1,0 +1,22 @@
+﻿
+@page "/login"
+@rendermode InteractiveServer
+
+<div class="page-container">
+    <div class="form-card">
+
+        <SoteriaInput Label="Login" />
+        <SoteriaInput Label="Senha" Type="password" />
+        <SoteriaButtonAzul Text="Cadastrar" OnClick="ProcessarCadastro" />
+        
+    </div>
+</div>
+
+@code {
+
+    private void ProcessarCadastro()
+    {
+        Console.WriteLine("BOTAO CLICADO");
+    }
+   
+}
