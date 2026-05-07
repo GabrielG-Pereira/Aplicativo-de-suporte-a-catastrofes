@@ -4,5 +4,5 @@ CREATE TABLE evento(
     descricao TEXT,
     localizacao GEOMETRY(POINT, 4326) NOT NULL,
     data_inicio TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    status status_evento DEFAULT NOT NULL 'Ativo' 
+    status status_evento NOT NULL DEFAULT 'Ativo' 
 );

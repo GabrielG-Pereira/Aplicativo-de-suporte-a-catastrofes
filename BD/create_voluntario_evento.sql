@@ -11,7 +11,4 @@ CREATE TABLE ponto_coleta(
         REFERENCES evento(id) ON DELETE CASCADE,
     CONSTRAINT fk_voluntario FOREIGIN KEY (id_voluntario)
         REFERENCES voluntario(id) ON DELETE CASCADE  
-        
-    CREATE INDEX idx_voluntario_evento_evento ON voluntario_evento(id_evento);
-    CREATE INDEX idx_voluntario_evento_voluntario ON voluntario_evento(id_voluntario);
 );
