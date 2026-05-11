@@ -1,4 +1,4 @@
-CREATE TABLE ponto_coleta(
+CREATE TABLE voluntario_evento(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     id_evento UUID NOT NULL,
     id_voluntario UUID NOT NULL,

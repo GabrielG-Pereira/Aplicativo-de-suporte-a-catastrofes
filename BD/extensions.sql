@@ -17,3 +17,9 @@ CREATE TYPE tipo_usuario AS ENUM(
     'Gestor',
     'Voluntario'
 );
+
+CREATE TYPE status_demanda AS ENUM(
+    'Crítico', 
+    'Médio', 
+    'Estável'
+);
