@@ -1,5 +1,14 @@
-INSERT INTO especialidade_voluntario (categoria, nome)
-VALUES 
-('24cb1e12-a70e-4524-addb-4badcbaa4e7a', 'Médico'),
-('24cb1e12-a70e-4524-addb-4badcbaa4e7a', 'Enfermeiro'),
-('24cb1e12-a70e-4524-addb-4badcbaa4e7a', 'Motorista de Ambulância');
+WITH ins_categoria AS(
+    INSERT INTO categoria_especialidade(nome)
+    VALUES(
+        'Saúde'
+    )
+    RETURNING id
+)
+
+INSERT INTO especialidade_voluntario(categoria, nome)
+SELECT
+    id,
+    'Médico'
+FROM ins_categoria;  
+      

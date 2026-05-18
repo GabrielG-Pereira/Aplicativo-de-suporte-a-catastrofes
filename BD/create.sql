@@ -1,5 +1,10 @@
-\i create_evento.sql
-\i create_usuario.sql
-\i create_voluntario.sql
-\i create_especialidade_voluntario.sql
-\i create_categoria_especialidade.sql
+\i create_categoria_demanda.sql;
+\i create_categoria_especialidade.sql;
+\i create_especialidade_voluntario.sql;
+\i create_evento.sql;
+\i create_ponto_coleta.sql;
+\i create_ponto_evento.sql;
+\i create_usuario.sql;
+\i create_voluntario.sql;
+\i create_voluntario_evento.sql;
+\i create_demanda.sql;
