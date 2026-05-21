@@ -12,6 +12,16 @@
     margin-top: 20px;
 }
 
+.soteria-button.btn-blue {
+    background-color: var(--azul-escuro);
+    color: white;
+}
+
+.soteria-button.btn-yellow {
+    background-color: var(--amarelo);
+    color: white;
+}
+
 /* Efeito ao passar o mouse */
 .soteria-button:hover {
     background-color: #D18A00;
