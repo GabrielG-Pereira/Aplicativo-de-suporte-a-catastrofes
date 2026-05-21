@@ -1,5 +1,5 @@
 ﻿.soteria-button {
-    background-color: #e67e22; /* mesma cor que ":hover", por enquanto*/
+    background-color: var(--amarelo); /* mesma cor que ":hover", por enquanto*/
     color: white;
     width: 100%;
     padding: 15px;
