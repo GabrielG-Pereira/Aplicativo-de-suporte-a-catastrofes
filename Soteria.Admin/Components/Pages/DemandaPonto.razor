@@ -1,0 +1,53 @@
+﻿@page "/demandas"
+@rendermode InteractiveServer
+
+
+<div class="page-container">
+    <div class="content-wrapper">
+        
+        <div class="page-header">
+            <SoteriaTitle Text="DEMANDAS DO PONTO" />
+            <SoteriaButton Text="Adicionar" Color="blue" OnClick="ProcessarCadastro" />
+        </div>
+
+        <SoteriaTable Headers="@(new List<string> { "Demanda", "ID", "Descrição" })">
+            @foreach (var item in listaMock)
+            {
+                <tr>
+                    <td>@item.Nome</td>
+                    <td>@item.Id</td>
+                    <td>@item.Descricao</td>
+                    <td>
+                        <SoteriaButton Text="Ver mais" Color="yellow" />
+                    </td>
+                </tr>
+            }
+        </SoteriaTable>
+
+    </div>
+</div>
+
+@code {
+
+    private void ProcessarCadastro()
+    {
+        Console.WriteLine("BOTAO CLICADO");
+    }
+
+    // Simulação de dados (Mock)
+    private List<DemandaItem> listaMock = new()
+    {
+        new DemandaItem { Nome = "Alimento", Id = "001", Descricao = "Leite em pó" },
+        new DemandaItem { Nome = "Higiene", Id = "001", Descricao = "Papel Higiênico" },
+        new DemandaItem { Nome = "Saúde", Id = "001", Descricao = "Remédio" },
+        new DemandaItem { Nome = "RH", Id = "001", Descricao = "Médico" }
+    };
+
+    public class DemandaItem
+    {
+        public string Nome { get; set; } = "";
+        public string Id { get; set; } = "";
+        public string Descricao { get; set; } = "";
+    }
+   
+}

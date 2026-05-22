@@ -7,10 +7,12 @@
     --cor-fundo: #EEF1F8;
     --preto: #000000;
     --azul-escuro: #2c3e50;
+    --cinza: #e0e0e0;
     --font-padrao: 'Poppins', sans-serif;
-    --font-titulo-tamanho: 1.2rem;
+    --font-grande: 1.5rem;
+    --font-media: 1.2rem;
+    --font-pequeno: 0.9rem;
     --font-titulo-peso: 700;
-    --font-pequeno-tamanho: 0.9rem;
     --font-pequeno-peso: 400;
 }
 

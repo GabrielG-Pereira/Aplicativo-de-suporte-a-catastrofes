@@ -4,5 +4,17 @@
     font-size: var(--font-titulo-tamanho);
     font-weight: var(--font-titulo-peso);
     text-transform: uppercase;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+}
+
+.title-sm {
+    font-size: var(--font-pequeno);
+}
+
+.title-md {
+    font-size: var(--font-media);
+}
+
+.title-lg {
+    font-size: var(--font-grande);
 }

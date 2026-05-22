@@ -1,0 +1,23 @@
+﻿<table class="soteria-table">
+    <thead>
+        <tr>
+            @foreach (var header in Headers)
+            {
+                <th>@header</th>
+            }
+            @if (ShowActionColumn)
+            {
+                <th></th> @* Coluna vazia para o botão de ação *@
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @ChildContent
+    </tbody>
+</table>
+
+@code {
+    [Parameter] public List<string> Headers { get; set; } = new();
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public bool ShowActionColumn { get; set; } = true;
+}

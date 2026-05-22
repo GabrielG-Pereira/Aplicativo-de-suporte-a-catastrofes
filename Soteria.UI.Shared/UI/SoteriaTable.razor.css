@@ -1,0 +1,31 @@
+﻿.soteria-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    table-layout: auto;
+    color: var(--gradiente-azul);
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    font-weight: var(--font-pequeno-peso);
+}
+
+    .soteria-table th {
+        text-align: left;
+        color: var(--cinza); 
+        font-weight: 400;
+        font-size: 0.9rem;
+        padding: 12px 15px;
+        border-bottom: 1px solid var(--cinza);
+    }
+
+        /* Ajuste específico para a última coluna (cabeçalho e célula) */
+        .soteria-table th:last-child,
+        .soteria-table td:last-child {
+            text-align: right;
+            padding-right: 0; /* Remove o padding para encostar na margem direita */
+            width: 1%; /* Força a coluna a ocupar o mínimo de espaço possível */
+            white-space: nowrap; /* Impede o botão de quebrar linha */
+        }
+
+            /* Se quiser garantir que o botão dentro da célula não tenha margens sobrando */
+           

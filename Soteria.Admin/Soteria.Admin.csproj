@@ -7,4 +7,8 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Soteria.UI.Shared\Soteria.UI.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

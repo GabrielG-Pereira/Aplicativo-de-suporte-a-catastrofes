@@ -1,25 +1,31 @@
 ﻿.soteria-button {
-    background-color: var(--amarelo); /* mesma cor que ":hover", por enquanto*/
+    background-color: var(--amarelo);
     color: white;
-    width: 100%;
-    padding: 15px;
+    padding: 15px 35px;
     border: none;
-    border-radius: 12px; /* Arredondado igual ao protótipo */
+    border-radius: 12px;
     font-size: var(--font-titulo-tamanho);
     font-weight: var(--font-titulo-peso);
     cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 20px;
+    transition: background-color 0.2s, transform 0.1s;
+    display: inline-block;
+    min-width: 140px; /* Define uma largura mínima padrão para todos */
+    white-space: nowrap; /* Garante que "Ver mais" fique em uma única linha */
 }
 
 .soteria-button.btn-blue {
-    background-color: var(--azul-escuro);
+    background: var(--gradiente-azul);
     color: white;
 }
 
 .soteria-button.btn-yellow {
     background-color: var(--amarelo);
     color: white;
+}
+
+.btn-full {
+    width: 100%;
+    display: block; 
 }
 
 /* Efeito ao passar o mouse */

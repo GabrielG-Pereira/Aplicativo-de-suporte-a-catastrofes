@@ -1,5 +1,14 @@
-﻿<h1 class="soteria-title">@Text</h1>
+﻿<h1 class="soteria-title @SizeClass">@Text</h1>
 
 @code {
     [Parameter] public string Text { get; set; } = "";
+    [Parameter] public string Size { get; set; } = "large"; // Opções: small, medium, large
+
+    private string SizeClass => Size.ToLower() switch
+    {
+        "small" => "title-sm",
+        "medium" => "title-md",
+        "large" => "title-lg",
+        _ => "title-lg"
+    };
 }
