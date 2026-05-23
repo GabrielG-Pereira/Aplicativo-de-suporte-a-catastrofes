@@ -1,0 +1,9 @@
+﻿.page-container {
+    max-width: 1200px;
+    margin: 5rem auto; /* Centraliza tudo dentro dele */
+    width: 100%;
+}
+
+.page-header {
+    border-bottom: 1px solid #E6E6F0;
+}
