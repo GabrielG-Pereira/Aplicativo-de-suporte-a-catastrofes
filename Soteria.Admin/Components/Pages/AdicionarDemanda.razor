@@ -2,8 +2,25 @@
 
 <div class="page-container">
     <div class="page-header"><SoteriaTitle Text="ADICIONAR DEMANDA" /></div>
+    <div class="page-inputs">
+        <SoteriaSelect Label="Categoria" Options="categorias" />
+        <SoteriaInput Label="Quantidade" />
+    </div>
+    <SoteriaInput Label="Descrição" Type="textarea" />
+    <SoteriaSelect Label="Status" Options="status" />
+    <div class="button">
+        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
+    </div>
 </div>
 
-@code {
 
+
+@code {
+    private List<string> categorias = new() { "Alimentos", "Higiene", "Vestuário"}; // VEM DA TABELA CATEGORIA DEMANDA
+    private List<string> status = new() { "Crítico", "Médio", "Estável" }; // ENUM
+
+    private void ProcessarAdicionar()
+    {
+        Console.WriteLine("BOTAO CLICADO");
+    }
 }
