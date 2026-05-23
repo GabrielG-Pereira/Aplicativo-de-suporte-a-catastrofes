@@ -1,28 +1,35 @@
-﻿@page "/adicionar"
+﻿@page "/alterar"
 @inject NavigationManager Navigation
 
 
 <div class="page-container">
-    <div class="page-header"><SoteriaTitle Text="ADICIONAR DEMANDA" /></div>
+    <div class="page-header">
+        <SoteriaTitle Text="INFORMAÇÕES DA DEMANDA" />
+        <div class="page-inputs">
+            <SoteriaButton Color="blue" Text="Editar" />
+            <SoteriaButton Color="blue" Text="Apagar" />
+        </div>
+        
+    </div>
     <SoteriaSelect Label="Categoria" Options="categorias" />
     <SoteriaInput Label="Descrição" Type="textarea" />
     
     
     <div class="page-inputs">
-       <SoteriaSelect Label="Status" Options="status" />
+        <SoteriaSelect Label="Status" Options="status" />
         <SoteriaInput Label="Quantidade" />
     </div>
     
     <div class="button">
         <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
-        <SoteriaButton Text="Voltar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
+        <SoteriaButton Text="Voltar" Color="outline" FullWidth="true" OnClick="ProcessarAdicionar" />
     </div>
 </div>
 
 
 
 @code {
-    private List<string> categorias = new() { "Alimentos", "Higiene", "Vestuário"}; // VEM DA TABELA CATEGORIA DEMANDA
+    private List<string> categorias = new() { "Alimentos", "Higiene", "Vestuário" }; // VEM DA TABELA CATEGORIA DEMANDA
     private List<string> status = new() { "Crítico", "Médio", "Estável" }; // ENUM
 
     private void ProcessarAdicionar()

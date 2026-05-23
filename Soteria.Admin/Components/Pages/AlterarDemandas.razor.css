@@ -7,12 +7,17 @@
 .page-header {
     border-bottom: 1px solid #E6E6F0;
     margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .page-inputs {
     display: flex;
     gap: 2rem;
-    width: 100%;
+   
 }
 
 .button {

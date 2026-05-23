@@ -1,5 +1,6 @@
 ﻿@page "/demandas"
 @rendermode InteractiveServer
+@inject NavigationManager Navigation
 
 
 <div class="page-container">
@@ -7,7 +8,7 @@
         
         <div class="page-header">
             <SoteriaTitle Text="DEMANDAS DO PONTO" />
-            <SoteriaButton Text="Adicionar" Color="blue" OnClick="ProcessarCadastro" />
+            <SoteriaButton Text="Adicionar" Color="blue" OnClick="AdicionarDemanda" />
         </div>
 
         <SoteriaTable Headers="@(new List<string> { "Demanda", "ID", "Descrição" })">
@@ -29,9 +30,9 @@
 
 @code {
 
-    private void ProcessarCadastro()
+    private void AdicionarDemanda()
     {
-        Console.WriteLine("BOTAO CLICADO");
+        Navigation.NavigateTo("/adicionar");
     }
 
     // Simulação de dados (Mock)

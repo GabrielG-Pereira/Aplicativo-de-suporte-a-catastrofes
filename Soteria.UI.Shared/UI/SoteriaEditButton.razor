@@ -1,30 +1,21 @@
 ﻿<button type="@Type"
-        class="soteria-button @ColorClass @(FullWidth ? "btn-full" : "")"
+        class="soteria-button"
         @onclick="OnClick"
         disabled="@IsDisabled">
-    <div class="btn-content">
-        @if (Icon != null)
-        {
-            <span class="btn-icon">@Icon</span>
-        }
-        @Text
-    </div>
 </button>
 
 @code {
     [Parameter] public string Text { get; set; } = "Botão";
     [Parameter] public string Type { get; set; } = "button";
     [Parameter] public bool IsDisabled { get; set; } = false;
-    [Parameter] public bool FullWidth { get; set; } = false; 
+    [Parameter] public bool FullWidth { get; set; } = false;
     [Parameter] public EventCallback OnClick { get; set; }
     [Parameter] public string Color { get; set; } = "blue";
-    [Parameter] public RenderFragment? Icon { get; set; } // Parâmetro para o SVG
 
     private string ColorClass => Color.ToLower() switch
     {
         "yellow" => "btn-yellow",
         "blue" => "btn-blue",
-        "outline" => "btn-outline",
         _ => "btn-blue"
     };
 }

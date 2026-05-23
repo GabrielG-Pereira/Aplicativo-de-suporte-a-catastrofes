@@ -1,7 +1,7 @@
 ﻿.soteria-button {
     background-color: var(--amarelo);
     color: white;
-    padding: 15px 35px;
+    padding: 16px 35px;
     border: none;
     border-radius: 12px;
     font-size: var(--font-titulo-tamanho);
@@ -9,8 +9,10 @@
     cursor: pointer;
     transition: background-color 0.2s, transform 0.1s;
     display: inline-block;
-    min-width: 140px; /* Define uma largura mínima padrão para todos */
-    white-space: nowrap; /* Garante que "Ver mais" fique em uma única linha */
+    min-width: 140px; 
+    white-space: nowrap; 
+    border: 2px solid transparent; 
+    box-sizing: border-box;
 }
 
 .soteria-button.btn-blue {
@@ -25,7 +27,7 @@
 
 .btn-full {
     width: 100%;
-    display: block; 
+    display: block;
 }
 
 /* Efeito ao passar o mouse */
@@ -42,4 +44,16 @@
     .soteria-button:disabled {
         background-color: #bdc3c7;
         cursor: not-allowed;
+    }
+
+.soteria-button.btn-outline {
+    background-color: white;
+    color: var(--amarelo);
+    border: 2px solid var(--amarelo);
+}
+
+    .soteria-button.btn-outline:hover {
+        background-color: #fffaf0; /* Leve fundo amarelado no hover */
+        border-color: #D18A00;
+        color: #D18A00;
     }
