@@ -1,0 +1,17 @@
+﻿/* Centraliza o card na tela e define o fundo claro */
+.page-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: white;
+    min-height: 100vh;
+}
+
+/* O "Card" branco com bordas arredondadas */
+.form-card {
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    padding: 24px;
+    
+}

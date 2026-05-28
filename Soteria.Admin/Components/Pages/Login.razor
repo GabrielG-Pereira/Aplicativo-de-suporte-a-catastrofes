@@ -1,0 +1,20 @@
+﻿@page "/"
+
+<div class="page-container">
+    <div class="form-card">
+        <img src="images/Logo_Soteria.jpg" alt="Logo Soteria" class="login-logo" />
+        <SoteriaInput Label="Usuário" />
+        <SoteriaInput Label="Senha" />
+        <SoteriaButton Text="Cadastrar" Color="yellow" FullWidth="true" OnClick="ProcessarLogin" />
+    </div>
+</div>
+
+@code {
+
+    private void ProcessarLogin()
+    {
+    
+        Console.WriteLine("BOTAO CLICADO");
+    }
+   
+}
