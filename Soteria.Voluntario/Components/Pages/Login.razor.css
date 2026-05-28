@@ -1,0 +1,15 @@
+.link-cadastro {
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    color: #666;
+    text-align: center;
+    margin-top: 16px;
+    cursor: default;
+}
+
+.link-cadastro span {
+    color: #EB9B00;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+}

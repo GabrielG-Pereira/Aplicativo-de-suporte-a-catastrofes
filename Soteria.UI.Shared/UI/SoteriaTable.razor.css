@@ -12,12 +12,11 @@
 
     .soteria-table th {
         text-align: left;
-        color: var(--cinza);
         font-weight: 400;
         font-size: 0.9rem;
         padding: 12px 15px;
         border-bottom: 1px solid var(--cinza);
-        background-color: #FCFCFC;
+        
     }
 
         /* Ajuste específico para a última coluna (cabeçalho e célula) */

@@ -1,0 +1,28 @@
+.info-field {
+    margin-bottom: 18px;
+}
+
+.info-field-label {
+    display: block;
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    font-weight: 700;
+    color: #002F52;
+    margin-bottom: 6px;
+}
+
+.info-field-value {
+    background-color: #F4F5F6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    font-weight: 400;
+    color: #333;
+    border: 1.5px solid transparent;
+}
+
+.info-field-destaque {
+    border-color: #326589;
+    background-color: white;
+}

@@ -1,0 +1,17 @@
+.main-layout {
+    display: flex; /* Coloca os filhos (Sidebar e Main) lado a lado */
+    min-height: 100vh; /* Garante que o layout ocupe a altura toda da tela */
+    width: 100%;
+}
+
+.content {
+    flex: 1; /* Faz o conteúdo ocupar todo o espaço restante à direita */
+    padding: 2rem; /* Espaçamento interno */
+    background-color: #EEF1F8; /* Cor de fundo cinza clara do protótipo */
+}
+
+/* Garante que a sidebar tenha uma largura fixa e não encolha */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}

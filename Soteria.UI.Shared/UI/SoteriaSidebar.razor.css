@@ -1,0 +1,38 @@
+﻿.sidebar {
+    width: 280px;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e0e0e0;
+    margin-top: 1rem;
+}
+
+.sidebar-header {
+    padding: 30px 20px 10px 20px;
+    color: var(--amarelo);
+    font-family: var(--font-padrao);
+    font-weight: bold;
+    font-size: var(--font-media);
+    letter-spacing: 1px;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item {
+    padding: 15px 20px;
+    color: var(--azul-escuro); /* Azul escuro do texto */
+    font-family: var(--font-padrao);
+    font-weight: var(--font-pequeno-peso);
+    font-size: var(--font-media);
+    transition: all 0.2s;
+}
+
+    .nav-item:hover {
+        background: var(--gradiente-azul);
+        color: white;
+    }
+

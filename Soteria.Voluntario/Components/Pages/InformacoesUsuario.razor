@@ -1,0 +1,48 @@
+@page "/perfil"
+@using Soteria.Voluntario.Models
+
+
+
+<div class="page-container">
+    <div class="form-card">
+
+        <SoteriaTitle Text="Informações do Usuário" />
+
+        <SoteriaInfoField Label="Nome"
+                          Valor="@voluntario.Nome" />
+
+        <SoteriaInfoField Label="Endereço"
+                          Valor="@voluntario.Endereco"
+                          Destaque="true" />
+
+        <SoteriaInfoField Label="Contato"
+                          Valor="@voluntario.Contato" />
+
+        <SoteriaInfoField Label="Email"
+                          Valor="@voluntario.Email" />
+
+        <SoteriaInfoField Label="Especialidade"
+                          Valor="@voluntario.Especialidade.ToString()" />
+
+        <SoteriaInfoField Label="Disponível como voluntário?"
+                          Valor="@(voluntario.Disponivel ? "Sim" : "Não")" />
+
+    </div>
+</div>
+
+@code {
+    // TODO: receber o voluntário logado via serviço de autenticação
+    private Models.Voluntario voluntario = new Models.Voluntario
+    {
+        Id            = 1,
+        Nome          = "Davi de Castro",
+        Email         = "medico@gmail.com",
+        Contato       = "(12) 99678 - 1231",
+        Endereco      = "R. Domingues Ribas, 52-166 - Vila Iapi, Taubaté - SP, 12060-000",
+        Especialidade = Especialidade.Medico,
+        Disponivel    = true,
+        Local         = new Coordenada { Latitude = -23.006, Longitude = -45.559 }
+    };
+
+    private string letraAvatar => string.IsNullOrEmpty(voluntario.Nome) ? "V" : voluntario.Nome[0].ToString();
+}

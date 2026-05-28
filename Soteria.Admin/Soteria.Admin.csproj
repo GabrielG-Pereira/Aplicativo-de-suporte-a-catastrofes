@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\images\Logo_Soteria.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Soteria.UI.Shared\Soteria.UI.Shared.csproj" />
   </ItemGroup>
 

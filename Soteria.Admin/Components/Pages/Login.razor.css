@@ -2,16 +2,20 @@
 .page-container {
     display: flex;
     justify-content: center;
-    padding: 20px;
-    background-color: white;
     min-height: 100vh;
+    margin-top: 15rem;
 }
 
 /* O "Card" branco com bordas arredondadas */
 .form-card {
-    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     max-width: 400px;
-    padding: 24px;
-    
+}
+
+.login-logo {
+    align-content: center;
+    max-width: 300px;
 }

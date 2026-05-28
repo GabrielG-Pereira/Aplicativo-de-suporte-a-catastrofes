@@ -1,0 +1,77 @@
+@page "/eventos"
+@using Soteria.Voluntario.Models
+@inject NavigationManager NavManager
+
+<CabecalhoVoluntario />
+
+<div class="page-container">
+    <div class="form-card">
+
+        <SoteriaTitle Text="Eventos que precisam de você" />
+
+        @foreach (var evento in eventos)
+        {
+            <div class="cartao-evento">
+                <h3 class="evento-titulo">@evento.Titulo</h3>
+
+                <div class="evento-info-linha">
+                    <div class="icone-fundo">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                             stroke="#002A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                    </div>
+                    <div class="evento-textos">
+                        <span class="evento-rotulo">Distância</span>
+                        <span class="evento-valor">5km do local</span>
+                    </div>
+                </div>
+
+                <div class="evento-info-linha">
+                    <div class="icone-fundo">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                             stroke="#002A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                    </div>
+                    <div class="evento-textos">
+                        <span class="evento-rotulo">Status</span>
+                        <span class="evento-valor">@evento.Status</span>
+                    </div>
+                </div>
+
+                <SoteriaButton Text="Ver detalhes" OnClick="@(() => VerDetalhes(evento.Id))" />
+            </div>
+        }
+
+    </div>
+</div>
+
+@code {
+    // TODO: substituir por chamada HttpClient à API
+    private List<Evento> eventos = new()
+    {
+        new Evento
+        {
+            Id         = 1,
+            Titulo     = "Alagamento no bairro do Vitor",
+            Descricao  = "Alagamento severo na região, voluntários necessários.",
+            Status     = Status.Ativo,
+            DataInicio = new DateTime(2026, 03, 06),
+            Local      = new Coordenada { Latitude = -23.006, Longitude = -45.559 }
+        },
+        new Evento
+        {
+            Id         = 2,
+            Titulo     = "Deslizamento na Serra",
+            Descricao  = "Deslizamento na área serrana, socorro necessário.",
+            Status     = Status.Critico,
+            DataInicio = new DateTime(2026, 03, 10),
+            Local      = new Coordenada { Latitude = -23.180, Longitude = -45.890 }
+        }
+    };
+
+    private void VerDetalhes(int id) => NavManager.NavigateTo($"/eventos/{id}");
+}

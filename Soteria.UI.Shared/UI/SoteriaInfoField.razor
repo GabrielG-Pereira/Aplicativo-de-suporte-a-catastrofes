@@ -1,0 +1,13 @@
+<div class="info-field">
+    <span class="info-field-label">@Label</span>
+    <div class="info-field-value @(Destaque ? "info-field-destaque" : "")">
+        <span>@Valor</span>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "";
+    [Parameter] public string Valor { get; set; } = "";
+    /// <summary>Coloca borda azul ao redor do campo (igual ao campo Endereço no protótipo)</summary>
+    [Parameter] public bool Destaque { get; set; } = false;
+}

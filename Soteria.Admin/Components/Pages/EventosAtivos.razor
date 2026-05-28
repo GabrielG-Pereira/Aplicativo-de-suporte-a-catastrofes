@@ -1,0 +1,55 @@
+﻿@page "/eventos-ativos"
+@layout SidebarLayout
+@inject NavigationManager Navigation
+
+
+<div class="page-container">
+    <div class="page-header">
+        <SoteriaTitle Text="EVENTOS ATIVOS" />
+        <SoteriaButton Text="Adicionar" Color="blue" />
+    </div>
+    <div class="content-wrapper">     
+        <SoteriaTable Headers="@(new List<string> { "Eventos", "ID", "Status" })">
+            @foreach (var item in listaMock)
+            {
+                <tr>
+                    <td>@item.Evento</td>
+                    <td>@item.Id</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <div class="button-group">
+                            <SoteriaButton Text="Voluntários" Color="yellow" FullWidth="true"/>
+                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true"  />
+                        </div>
+                    </td>
+                </tr>
+            }
+        </SoteriaTable>
+
+    </div>
+</div>
+
+
+@code {
+
+    private void AdicionarDemanda()
+    {
+        Navigation.NavigateTo("/adicionar");
+    }
+
+    // Simulação de dados (Mock)
+    private List<EventoItem> listaMock = new()
+    {
+        new EventoItem { Evento = "Alagamento no bairro do Vitor", Id = "001", Status = "Ativo" },
+        new EventoItem { Evento = "Alagamento no bairro do Davi", Id = "001", Status = "Ativo" },
+        new EventoItem { Evento = "Alagamento no bairro do Pablo", Id = "001", Status = "Ativo" },
+    };
+
+    public class EventoItem
+    {
+        public string Evento { get; set; } = "";
+        public string Id { get; set; } = "";
+        public string Status { get; set; } = "";
+    }
+   
+}

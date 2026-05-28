@@ -1,0 +1,51 @@
+.cartao-evento {
+    background-color: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.07);
+    margin-bottom: 20px;
+}
+
+.evento-titulo {
+    font-family: var(--font-padrao);
+    color: #002F52;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+}
+
+.evento-info-linha {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.icone-fundo {
+    background-color: #F4F5F6;
+    border-radius: 10px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.evento-textos {
+    display: flex;
+    flex-direction: column;
+}
+
+.evento-rotulo {
+    font-family: var(--font-padrao);
+    color: #002A4A;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.evento-valor {
+    font-family: var(--font-padrao);
+    color: #8C9CA9;
+    font-size: 0.85rem;
+}
