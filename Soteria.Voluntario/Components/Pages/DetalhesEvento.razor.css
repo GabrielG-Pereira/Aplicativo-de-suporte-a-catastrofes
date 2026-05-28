@@ -1,0 +1,47 @@
+.descricao-campo {
+    margin-bottom: 18px;
+}
+
+.descricao-label {
+    display: block;
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    font-weight: 700;
+    color: #002F52;
+    margin-bottom: 6px;
+}
+
+.descricao-valor {
+    background-color: #F4F5F6;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    color: #333;
+    line-height: 1.6;
+}
+
+.datas-linha {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 8px;
+}
+
+.data-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.data-label {
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    font-weight: 700;
+    color: #002F52;
+}
+
+.data-valor {
+    font-family: var(--font-padrao);
+    font-size: var(--font-pequeno-tamanho);
+    color: #333;
+}

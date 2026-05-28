@@ -1,0 +1,10 @@
+<button type="@Type" class="soteria-button-outline" @onclick="OnClick" disabled="@IsDisabled">
+    @Text
+</button>
+
+@code {
+    [Parameter] public string Text { get; set; } = "Botão";
+    [Parameter] public string Type { get; set; } = "button";
+    [Parameter] public bool IsDisabled { get; set; } = false;
+    [Parameter] public EventCallback OnClick { get; set; }
+}

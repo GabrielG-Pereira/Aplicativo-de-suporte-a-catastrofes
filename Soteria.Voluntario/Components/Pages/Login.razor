@@ -1,20 +1,40 @@
-﻿@page "/"
+@page "/"
+@inject NavigationManager NavManager
 
 <div class="page-container">
     <div class="form-card">
 
-        <SoteriaInput Label="Usuário" />
-        <SoteriaInput Label="Senha" />
+        <SoteriaInput Label="Usuário"
+                      @bind-Value="usuario"
+                      Placeholder="" />
+
+        <SoteriaInput Label="Senha"
+                      Type="password"
+                      @bind-Value="senha"
+                      Placeholder="" />
+
         <SoteriaButton Text="Entrar" OnClick="ProcessarLogin" />
-        <SoteriaText Text="Não possui uma conta? Cadastre-se agora" />
+
+        <p class="link-cadastro" @onclick="IrParaCadastro">
+            Não possui uma conta? <span>Cadastre-se agora</span>
+        </p>
+
     </div>
 </div>
 
 @code {
+    private string usuario = "";
+    private string senha = "";
 
-    private void ProcessarLogin(){
-    
-        Console.WriteLine("BOTAO CLICADO");
+    private void ProcessarLogin()
+    {
+        // TODO: chamar API de autenticação e guardar o Voluntario retornado
+        NavManager.NavigateTo("/eventos");
     }
-   
+
+    private void IrParaCadastro()
+    {
+        // TODO: definir rota de cadastro
+        Console.WriteLine("Navegar para cadastro");
+    }
 }

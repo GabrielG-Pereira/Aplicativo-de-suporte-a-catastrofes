@@ -1,0 +1,88 @@
+@page "/demandas"
+@using Soteria.Voluntario.Models
+@inject NavigationManager NavManager
+
+<CabecalhoVoluntario />
+
+<div class="page-container">
+    <div class="conteudo-demandas">
+
+        <div class="banner-inscrito">
+            <div class="banner-esquerda">
+                <div class="check-circulo">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                         stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                </div>
+                <span class="banner-titulo">Você está inscrito!</span>
+            </div>
+            <span class="badge-status">À caminho</span>
+        </div>
+        <p class="banner-subtitulo">Confirme sua chegada quando chegar ao local do evento</p>
+
+        <div class="cartao-evento-inscrito">
+            <h3 class="evento-titulo">@eventoAtivo.Titulo</h3>
+
+            <div class="evento-info-linha">
+                <div class="icone-fundo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="#002A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                </div>
+                <div class="evento-textos">
+                    <span class="evento-rotulo">Distância</span>
+                    <span class="evento-valor">5km do local</span>
+                </div>
+            </div>
+
+            <div class="evento-info-linha">
+                <div class="icone-fundo">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                         stroke="#002A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                </div>
+                <div class="evento-textos">
+                    <span class="evento-rotulo">Atualização</span>
+                    <span class="evento-valor">Há 1 hora</span>
+                </div>
+            </div>
+
+            <SoteriaButton Text="Ver detalhes"
+                           OnClick="@(() => NavManager.NavigateTo($"/eventos/{eventoAtivo.Id}"))" />
+        </div>
+
+        <SoteriaButtonAzul    Text="✓  Cheguei ao evento"  OnClick="ConfirmarChegada" />
+        <SoteriaButtonOutline Text="✕  Cancelar inscrição" OnClick="CancelarInscricao" />
+
+    </div>
+</div>
+
+@code {
+    // TODO: buscar da API o evento em que o voluntário está inscrito
+    private Evento eventoAtivo = new Evento
+    {
+        Id         = 1,
+        Titulo     = "Alagamento no bairro do Vitor",
+        Descricao  = "Alagamento severo na região.",
+        Status     = Status.Ativo,
+        DataInicio = new DateTime(2026, 03, 06),
+        Local      = new Coordenada { Latitude = -23.006, Longitude = -45.559 }
+    };
+
+    private void ConfirmarChegada()
+    {
+        // TODO: chamar API para registrar chegada
+        Console.WriteLine("Chegada confirmada");
+    }
+
+    private void CancelarInscricao()
+    {
+        // TODO: chamar API para cancelar inscrição
+        NavManager.NavigateTo("/eventos");
+    }
+}

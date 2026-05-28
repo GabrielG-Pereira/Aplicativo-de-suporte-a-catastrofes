@@ -1,0 +1,70 @@
+@page "/eventos/{Id:int}"
+@using Soteria.Voluntario.Models
+@inject NavigationManager NavManager
+
+<CabecalhoVoluntario />
+
+<div class="page-container">
+    <div class="form-card">
+
+        <SoteriaTitle Text="Informações do Evento" />
+
+        <SoteriaInfoField Label="Especialidade necessária"
+                          Valor="@especialidadeNecessaria" />
+
+        <SoteriaInfoField Label="Título"
+                          Valor="@evento.Titulo" />
+
+        <div class="descricao-campo">
+            <span class="descricao-label">Descrição</span>
+            <div class="descricao-valor">@evento.Descricao</div>
+        </div>
+
+        <SoteriaInfoField Label="Localização"
+                          Valor="@localizacaoFormatada" />
+
+        <div class="datas-linha">
+            <div class="data-item">
+                <span class="data-label">Ativo</span>
+                <span class="data-valor">@(evento.Status == Status.Ativo ? "Sim" : "Não")</span>
+            </div>
+            <div class="data-item">
+                <span class="data-label">Data de Início</span>
+                <span class="data-valor">@evento.DataInicio.ToString("dd/MM/yyyy")</span>
+            </div>
+        </div>
+
+        <SoteriaButton Text="Inscrever-se" OnClick="Inscrever" />
+
+    </div>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+
+    // TODO: buscar da API usando o Id da rota
+    private Evento evento = new Evento
+    {
+        Id         = 1,
+        Titulo     = "Alagamento no bairro do Vitor.",
+        Descricao  = "Evento de resposta a alagamento na região do bairro do Vitor. "
+                   + "Voluntários com experiência médica são necessários para atendimento "
+                   + "a desabrigados e feridos. O ponto de concentração é a escola municipal "
+                   + "da rua principal.",
+        Status     = Status.Ativo,
+        DataInicio = new DateTime(2026, 03, 06),
+        Local      = new Coordenada { Latitude = -23.006, Longitude = -45.559 }
+    };
+
+    // TODO: vir da demanda vinculada ao evento
+    private string especialidadeNecessaria = Especialidade.Medico.ToString();
+
+    // TODO: converter evento.Local (Coordenada) em endereço via geocoding
+    private string localizacaoFormatada = "R. Domingues Ribas, 52-166 - Vila Iapi, Taubaté - SP, 12060-000";
+
+    private void Inscrever()
+    {
+        // TODO: chamar API para registrar inscrição
+        NavManager.NavigateTo("/demandas");
+    }
+}
