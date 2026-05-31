@@ -1,0 +1,71 @@
+﻿@page "/alterar-evento"
+@inject NavigationManager Navigation
+
+<div class="page-container">
+    <div class="page-header">
+        <SoteriaTitle Text="INFORMAÇÕES DO EVENTO" />
+        <div class="header-actions">
+            <SoteriaButton Color="blue" Text="Editar" OnClick="HabilitarEdicao" />
+            <SoteriaButton Color="blue" Text="Apagar" OnClick="ConfirmarExclusao" />
+        </div>
+    </div>
+
+    <!-- Vinculamos o Value ao nosso objeto e o IsDisabled à nossa variável de controle -->
+    <SoteriaInput Label="Título do evento" @bind-Value="evento.Titulo" IsDisabled="isReadOnly" />
+    <SoteriaInput Label="Endereço" @bind-Value="evento.Endereco" IsDisabled="isReadOnly" />
+    <SoteriaInput Label="Descrição" @bind-Value="evento.Descricao" Description="true" IsDisabled="isReadOnly" />
+    
+    <SoteriaSelect Label="Status" Options="statusOptions" @bind-Value="evento.Status" IsDisabled="isReadOnly" />
+
+    <div class="form-footer">        
+        <SoteriaButton Text="Salvar Alterações" Color="yellow" OnClick="Salvar" IsDisabled="isReadOnly" FullWidth="true"/>
+        <SoteriaButton Text="Voltar" Color="outline" OnClick="Voltar" FullWidth="true" />
+    </div>
+</div>
+
+@code {
+
+    // 1. Modelo de dados (Simulando o que viria do banco)
+    private EventoModel evento = new();
+    private bool isReadOnly = true; // Começa bloqueado
+    private List<string> statusOptions = new() { "Ativo", "Encerrado", "Alerta Crítico" };
+
+    // 2. Simulação de carga de dados (Backend Mock)
+    protected override void OnInitialized()
+    {
+        // Aqui você faria a chamada ao Service/Banco
+        evento = new EventoModel
+        {
+            Titulo = "Alagamento no bairro do Vitor",
+            Endereco = "Rua das Flores, 123",
+            Descricao = "Ocorrência de alagamento severo após chuvas torrenciais.",
+            Status = "Ativo"
+        };
+    }
+
+    private void HabilitarEdicao() => isReadOnly = false;
+
+    private void Salvar()
+    {
+        // Aqui enviaria o objeto 'evento' para o backend
+        Console.WriteLine($"Salvando: {evento.Titulo}");
+        isReadOnly = true; // Bloqueia novamente após salvar
+    }
+
+    private void ConfirmarExclusao()
+    {
+        Console.WriteLine("Evento Apagado");
+        Navigation.NavigateTo("/eventos-ativos");
+    }
+
+    private void Voltar() => Navigation.NavigateTo("/eventos-ativos");
+
+    // Classe auxiliar para o teste
+    public class EventoModel
+    {
+        public string Titulo { get; set; } = "";
+        public string Endereco { get; set; } = "";
+        public string Descricao { get; set; } = "";
+        public string Status { get; set; } = "";
+    }
+}

@@ -6,7 +6,7 @@
 <div class="page-container">
     <div class="page-header">
         <SoteriaTitle Text="EVENTOS ATIVOS" />
-        <SoteriaButton Text="Adicionar" Color="blue" />
+        <SoteriaButton Text="Adicionar" Color="blue" OnClick="AdicionarEvento" />
     </div>
     <div class="content-wrapper">     
         <SoteriaTable Headers="@(new List<string> { "Eventos", "ID", "Status" })">
@@ -32,9 +32,9 @@
 
 @code {
 
-    private void AdicionarDemanda()
+    private void AdicionarEvento()
     {
-        Navigation.NavigateTo("/adicionar");
+        Navigation.NavigateTo("/adicionar-evento");
     }
 
     // Simulação de dados (Mock)

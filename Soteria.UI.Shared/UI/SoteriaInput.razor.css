@@ -6,7 +6,7 @@
     width: 100%;
 }
 
-    /* Texto acima do campo (Nome  */
+    /* Texto acima do campo */
     .input-group label {
         color: var(--gradiente-azul);
         font-family: var(--font-padrao);
@@ -15,8 +15,9 @@
         margin-bottom: 8px;
     }
 
-    /* O campo de texto em si */
-    .input-group input {
+    /* Aplica o estilo tanto para input quanto para textarea */
+    .input-group input,
+    .input-group textarea {
         border: 1.5px solid var(--azul-escuro);
         border-radius: 10px;
         padding: 12px;
@@ -24,4 +25,12 @@
         font-family: var(--font-padrao);
         font-size: var(--font-pequeno-tamanho);
         font-weight: var(--font-pequeno-peso);
+        width: 100%;
+        box-sizing: border-box; /* Garante que o padding não aumente o tamanho final */
     }
+
+/* Estilo específico para a caixa de descrição */
+.input-description {
+    min-height: 150px;
+    resize: vertical;
+}

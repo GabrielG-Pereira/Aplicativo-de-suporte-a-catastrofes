@@ -1,39 +1,73 @@
-﻿@page "/alterar"
+﻿@page "/alterar-demanda"
 @inject NavigationManager Navigation
-
 
 <div class="page-container">
     <div class="page-header">
         <SoteriaTitle Text="INFORMAÇÕES DA DEMANDA" />
-        <div class="page-inputs">
-            <SoteriaButton Color="blue" Text="Editar" />
-            <SoteriaButton Color="blue" Text="Apagar" />
+        <div class="header-actions">
+            <SoteriaButton Color="blue" Text="Editar" OnClick="HabilitarEdicao" />
+            <SoteriaButton Color="blue" Text="Apagar" OnClick="ConfirmarExclusao" />
         </div>
-        
     </div>
-    <SoteriaSelect Label="Categoria" Options="categorias" />
-    <SoteriaInput Label="Descrição" Type="textarea" />
-    
+
+    <SoteriaSelect Label="Categoria" Options="categorias" @bind-Value="demanda.Categoria" IsDisabled="isReadOnly" />
+    <SoteriaInput Label="Descrição" @bind-Value="demanda.Descricao" Description="true" IsDisabled="isReadOnly" />
     
     <div class="page-inputs">
-        <SoteriaSelect Label="Status" Options="status" />
-        <SoteriaInput Label="Quantidade" />
+        <SoteriaSelect Label="Status" Options="statusOptions" @bind-Value="demanda.Status" IsDisabled="isReadOnly" />
+        <SoteriaInput Label="Quantidade" @bind-Value="demanda.Quantidade" IsDisabled="isReadOnly" />
     </div>
     
-    <div class="button">
-        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
-        <SoteriaButton Text="Voltar" Color="outline" FullWidth="true" OnClick="ProcessarAdicionar" />
+
+    <div class="form-footer">
+        <SoteriaButton Text="Salvar Alterações" Color="yellow" OnClick="Salvar" IsDisabled="isReadOnly" FullWidth="true" />
+        <SoteriaButton Text="Voltar" Color="outline" OnClick="Voltar" FullWidth="true" />
     </div>
 </div>
 
-
-
 @code {
-    private List<string> categorias = new() { "Alimentos", "Higiene", "Vestuário" }; // VEM DA TABELA CATEGORIA DEMANDA
-    private List<string> status = new() { "Crítico", "Médio", "Estável" }; // ENUM
 
-    private void ProcessarAdicionar()
+    // 1. Modelo de dados (Simulando o que viria do banco)
+    private DemandaModel demanda = new();
+    private bool isReadOnly = true; // Começa bloqueado
+    private List<string> statusOptions = new() { "Ativo", "Encerrado", "Alerta Crítico" };
+
+    // 2. Simulação de carga de dados (Backend Mock)
+    protected override void OnInitialized()
     {
+        // Aqui você faria a chamada ao Service/Banco
+        demanda = new DemandaModel
+        {
+            Categoria = "Alimentos",
+            Descricao = "Fardo arroz 5kg",
+            Status = "Crítico",
+            Quantidade = "100"
+        };
+    }
+
+    private void HabilitarEdicao() => isReadOnly = false;
+
+    private void Salvar()
+    {
+        // Aqui enviaria o objeto 'evento' para o backend
+        Console.WriteLine($"Salvando: {demanda.Descricao}");
+        isReadOnly = true; // Bloqueia novamente após salvar
+    }
+
+    private void ConfirmarExclusao()
+    {
+        Console.WriteLine("Demanda Apagado");
         Navigation.NavigateTo("/demandas");
+    }
+
+    private void Voltar() => Navigation.NavigateTo("/demandas");
+
+    // Classe auxiliar para o teste
+    public class DemandaModel
+    {
+        public string Categoria { get; set; } = "";
+        public string Descricao { get; set; } = "";
+        public string Status { get; set; } = "";
+        public string Quantidade { get; set; } = "";
     }
 }

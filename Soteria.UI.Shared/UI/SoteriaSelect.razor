@@ -1,6 +1,8 @@
 ﻿<div class="input-group">
     <label>@Label</label>
-    <select @onchange="@(async (e) => { SelectedValue = e.Value?.ToString() ?? ""; await SelectedValueChanged.InvokeAsync(SelectedValue); })">
+    <select disabled="@IsDisabled"
+            value="@Value"
+            @onchange="OnSelectedValueChanged">
         @if (Options != null)
         {
             @foreach (var option in Options)
@@ -13,9 +15,16 @@
 
 @code {
     [Parameter] public string Label { get; set; } = "";
-    
     [Parameter] public List<string>? Options { get; set; }
+    [Parameter] public bool IsDisabled { get; set; } = false;
 
-    [Parameter] public string SelectedValue { get; set; } = "";
-    [Parameter] public EventCallback<string> SelectedValueChanged { get; set; }
+    // Renomeado para funcionar com @bind-Value
+    [Parameter] public string Value { get; set; } = "";
+    [Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+    private async Task OnSelectedValueChanged(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString() ?? "";
+        await ValueChanged.InvokeAsync(Value);
+    }
 }

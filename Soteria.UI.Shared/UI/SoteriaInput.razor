@@ -1,17 +1,36 @@
 ﻿<div class="input-group">
     <label>@Label</label>
-    <input type="@Type"
-           value="@Value"
-           @oninput="@(async (e) => { Value = e.Value?.ToString() ?? ""; await ValueChanged.InvokeAsync(Value); })"
-           placeholder="@Placeholder" />
+    
+    @if (Description)
+    {
+        <textarea class="soteria-field input-description"
+                  placeholder="@Placeholder"
+                  @oninput="OnInputChange"
+                  disabled="@IsDisabled">@Value</textarea>
+    }
+    else
+    {
+        <input type="@Type"
+               class="soteria-field"
+               value="@Value"
+               placeholder="@Placeholder"
+               disabled="@IsDisabled"
+               @oninput="OnInputChange" />
+    }
 </div>
 
 @code {
-    [Parameter] public string Label { get; set; } = ""; // Permite eu passar o valor do Label
-    [Parameter] public string Placeholder { get; set; } = ""; 
-    [Parameter] public string Type { get; set; } = "text"; // Se não selecionado, a entrada vai ser do tipo texto
-    
-    // Para capturar o que o usuário digita
-    [Parameter] public string Value { get; set; } = ""; // Variavel que guarda o valor de entrada
+    [Parameter] public string Label { get; set; } = "";
+    [Parameter] public string Placeholder { get; set; } = "";
+    [Parameter] public string Type { get; set; } = "text";
+    [Parameter] public bool Description { get; set; } = false;
+    [Parameter] public string Value { get; set; } = "";
     [Parameter] public EventCallback<string> ValueChanged { get; set; }
+    [Parameter] public bool IsDisabled { get; set; } = false;
+
+    private async Task OnInputChange(ChangeEventArgs e)
+    {
+        Value = e.Value?.ToString() ?? "";
+        await ValueChanged.InvokeAsync(Value);
+    }
 }

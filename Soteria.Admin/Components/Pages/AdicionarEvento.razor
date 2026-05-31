@@ -1,0 +1,29 @@
+﻿@page "/adicionar-evento"
+@inject NavigationManager Navigation
+
+
+<div class="page-container">
+    <div class="page-header"><SoteriaTitle Text="ADICIONAR EVENTO" /></div>
+    <SoteriaInput Label="Título do evento" Type="textarea" />
+    <SoteriaInput Label="Endereço" Type="textarea" />
+    <SoteriaInput Label="Descrição" Type="textarea" Description="true" />
+    <SoteriaSelect Label="Status" Options="status" />
+       
+    
+    
+    <div class="button">
+        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
+        <SoteriaButton Text="Voltar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
+    </div>
+</div>
+
+
+
+@code {
+    private List<string> status = new() { "Ativo", "Encerrado", "Alerta Crítico" }; // ENUM
+
+    private void ProcessarAdicionar()
+    {
+        Navigation.NavigateTo("/eventos-ativos");
+    }
+}
