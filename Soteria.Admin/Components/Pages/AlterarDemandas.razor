@@ -31,6 +31,7 @@
     private DemandaModel demanda = new();
     private bool isReadOnly = true; // Começa bloqueado
     private List<string> statusOptions = new() { "Ativo", "Encerrado", "Alerta Crítico" };
+    private List<string>  categorias = new() { "Alimentos", "Bebidas", "Higiene" };
 
     // 2. Simulação de carga de dados (Backend Mock)
     protected override void OnInitialized()
@@ -40,7 +41,7 @@
         {
             Categoria = "Alimentos",
             Descricao = "Fardo arroz 5kg",
-            Status = "Crítico",
+            Status = "Ativo",
             Quantidade = "100"
         };
     }

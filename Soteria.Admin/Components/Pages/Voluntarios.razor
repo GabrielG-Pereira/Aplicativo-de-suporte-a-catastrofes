@@ -1,0 +1,124 @@
+﻿@page "/voluntarios"
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+
+
+<div class="page-container">
+    <div class="content-wrapper">
+        
+        <div class="page-header">
+            <SoteriaTitle Text="ADICIONAR CHAMADO DE VOLUNTÁRIO" />
+        </div>
+
+
+        <div class="page-inputs">
+            @* Usa as chaves do dicionário (Saúde, Logística...) *@
+            <SoteriaSelect Label="Categoria"
+                           Options="mapaEspecialidades.Keys.ToList()"
+                           @bind-Value="SelectedCategoria" />
+
+            @* Usa a lista que muda sozinha baseada na categoria *@
+            <SoteriaSelect Label="Especialidade"
+                           Options="especialidadesFiltradas"
+                           @bind-Value="selectedEspecialidade"
+                           IsDisabled="@(string.IsNullOrEmpty(selectedCategoria))" />
+            <SoteriaInput Label="Quantidade"></SoteriaInput>
+        </div>
+
+        <div class="button">
+            <SoteriaButton Text="Disparar Chamado" Color="yellow" OnClick="DispararChamado" />
+        </div>
+       
+
+        <div class="page-header">
+            <SoteriaTitle Text="VOLUNTÁRIOS ATUANDO NO EVENTO" />
+        </div>
+
+        <SoteriaTable Headers="@(new List<string> {"ID", "Nome", "Especialidade", "Status"})">
+            @foreach (var item in listaVoluntarios)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Especialidade</td>
+                    <td>@item.Status</td>
+                </tr>
+            }
+        </SoteriaTable>
+
+    </div>
+</div>
+
+@code {
+
+    private List<Voluntario> listaVoluntarios = new();
+    private bool isReadOnly = true; // Começa bloqueado
+
+    private Dictionary<string, List<string>> mapaEspecialidades = new()
+    {
+        { "Saúde", new() { "Médico", "Enfermeiro", "SAMU" } },
+        { "Logística", new() { "Motorista", "Almoxarife" } },
+        { "Busca", new() { "Socorrista", "Bombeiro" } }
+    };
+
+    private string selectedCategoria = "";
+    private string selectedEspecialidade = "";
+
+    // 2. Lista filtrada que alimenta o segundo Select
+    private List<string> especialidadesFiltradas =>
+        string.IsNullOrEmpty(selectedCategoria)
+            ? new List<string>()
+            : mapaEspecialidades[selectedCategoria];
+
+    // Propriedade para o Bind da Categoria com lógica de reset
+    private string SelectedCategoria
+    {
+        get => selectedCategoria;
+        set
+        {
+            if (selectedCategoria != value)
+            {
+                selectedCategoria = value;
+                selectedEspecialidade = ""; // Reseta a especialidade ao mudar a categoria
+            }
+        }
+    }
+
+    private void DispararChamado()
+    {
+        Console.WriteLine($"Chamado para {selectedEspecialidade} na categoria {selectedCategoria} disparado!");
+       
+    }
+
+
+    protected override void OnInitialized()
+    {
+        // Aqui você faria a chamada ao Service/Banco
+        listaVoluntarios = GetMockVoluntarios();
+        selectedCategoria = mapaEspecialidades.Keys.First();
+    }
+
+    private void AdicionarVoluntario()
+    {
+        Navigation.NavigateTo("/adicionar-demanda");
+    }
+
+    // Simulação de dados (Mock)
+    private List<Voluntario> GetMockVoluntarios(){
+        return new List<Voluntario> 
+        {
+            new Voluntario {  Id = "001", Nome = "Davi", Especialidade = "Catador de coquinho", Status = "No local" },
+            new Voluntario {  Id = "002", Nome = "Gabriel", Especialidade = "Fiscal de buzina", Status = "No local" },
+            new Voluntario {  Id = "003", Nome = "Pablo", Especialidade = "Engenheiro de pesca", Status = "A caminho" },
+        };
+    }
+
+    public class Voluntario
+    {
+        public string Id { get; set; } = "";
+        public string Nome { get; set; } = "";
+        public string Especialidade { get; set; } = "";
+        public string Status { get; set; } = "";
+    }
+   
+}
