@@ -37,3 +37,8 @@
     margin-top: 3rem;
     gap: 2rem;
 }
+
+.header-actions {
+    display: flex;
+    gap: 1rem;
+}

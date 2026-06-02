@@ -18,8 +18,8 @@
                     <td>@item.Status</td>
                     <td>
                         <div class="button-group">
-                            <SoteriaButton Text="Voluntários" Color="yellow" FullWidth="true"/>
-                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true"  />
+                            <SoteriaButton Text="Voluntários" Color="yellow" FullWidth="true" OnClick="NavegarParaVoluntarios"/>
+                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true" OnClick="NavegarParaDetalhes"  />
                         </div>
                     </td>
                 </tr>
@@ -35,6 +35,16 @@
     private void AdicionarEvento()
     {
         Navigation.NavigateTo("/adicionar-evento");
+    }
+
+    private void NavegarParaVoluntarios()
+    {
+        Navigation.NavigateTo("/voluntarios");
+    }
+
+    private void NavegarParaDetalhes()
+    {
+        Navigation.NavigateTo("/alterar-evento");
     }
 
     // Simulação de dados (Mock)

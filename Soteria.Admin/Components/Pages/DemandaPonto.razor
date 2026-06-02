@@ -19,7 +19,7 @@
                     <td>@item.Id</td>
                     <td>@item.Descricao</td>
                     <td>
-                        <SoteriaButton Text="Ver mais" Color="yellow" />
+                        <SoteriaButton Text="Ver mais" Color="yellow" OnClick="NavegarParaDetalhes" />
                     </td>
                 </tr>
             }
@@ -33,6 +33,11 @@
     private void AdicionarDemanda()
     {
         Navigation.NavigateTo("/adicionar-demanda");
+    }
+
+    private void NavegarParaDetalhes()
+    {
+        Navigation.NavigateTo("/alterar-demanda");
     }
 
     // Simulação de dados (Mock)

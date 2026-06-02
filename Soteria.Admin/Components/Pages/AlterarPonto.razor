@@ -3,21 +3,27 @@
 
 
 <div class="page-container">
-    <div class="page-header"><SoteriaTitle Text="ALTERAR PONTO DE COLETA" /></div>
-    <SoteriaInput Label="Nome do ponto " Type="textarea" />
-    <SoteriaInput Label="Endereço" Type="textarea" />
-    <SoteriaInput Label="Contato" Type="textarea" />
+    <div class="page-header">
+        <SoteriaTitle Text="ALTERAR PONTO DE COLETA" />
+        <div class="header-actions">
+            <SoteriaButton Color="blue" Text="Editar" OnClick="HabilitarEdicao" />
+            <SoteriaButton Color="blue" Text="Apagar" OnClick="ConfirmarExclusao" />
+        </div>
+    </div>
+    <SoteriaInput Label="Nome do ponto " Type="textarea" IsDisabled="isReadOnly" @bind-Value="ponto.Nome"/>
+    <SoteriaInput Label="Endereço" Type="textarea" IsDisabled="isReadOnly" @bind-Value="ponto.Endereco"/>
+    <SoteriaInput Label="Contato" Type="textarea" IsDisabled="isReadOnly" @bind-Value="ponto.Contato"/>
     
     <div class="page-inputs">
-        <SoteriaSelect Label="Temporário" Options="@(new List<string> { "Sim", "Não" })" />
-        <SoteriaSelect Label="Gestor Responsável" Options="@(new List<string> { "Gestor 1", "Gestor 2" })" />
+        <SoteriaSelect Label="Temporário" Options="@(new List<string> { "Sim", "Não" })" IsDisabled="isReadOnly" @bind-Value="ponto.Temporario"/>
+        <SoteriaSelect Label="Gestor Responsável" Options="@(new List<string> { "Gestor 1", "Gestor 2" })" IsDisabled="isReadOnly" @bind-Value="ponto.GestorResponsavel"/>
     </div>
 
        
     
     <div class="button">
         <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
-        <SoteriaButton Text="Voltar" Color="outline" FullWidth="true" OnClick="ProcessarAdicionar" />
+        <SoteriaButton Text="Voltar" Color="outline" FullWidth="true" OnClick="Voltar" />
     </div>
 </div>
 
@@ -25,8 +31,53 @@
 
 @code {
 
+    private bool isReadOnly = true;
+
     private void ProcessarAdicionar()
     {
-        Navigation.NavigateTo("/pontos  ");
+        isReadOnly = true; // Bloqueia novamente após salvar
+        Console.WriteLine("Ponto salvo");
+        
+    }
+
+    private void ConfirmarExclusao()
+    {
+        Console.WriteLine("Ponto Apagado");
+        Navigation.NavigateTo("/pontos");
+    }
+
+    private void Voltar()
+    {
+        Navigation.NavigateTo("/pontos");
+    }
+
+    private void HabilitarEdicao() => isReadOnly = false;
+
+    // 1. Modelo de dados (Simulando o que viria do banco)
+    private PontoModel ponto = new();
+
+    protected override void OnInitialized()
+    {
+        // Aqui você faria a chamada ao Service/Banco
+        ponto = new PontoModel
+        {
+            Nome = "Ponto da igereja",
+            Endereco = "Rua das avenidas",
+            Contato = "12 1234-1234",
+            Temporario = "Sim",
+            GestorResponsavel = "Gestor 1"
+        };
+    }
+
+    
+
+    // Classe auxiliar para o teste
+    public class PontoModel
+    {
+        public string Nome { get; set; } = "";
+        public string Endereco { get; set; } = "";
+        public string Contato { get; set; } = "";
+        public string Temporario { get; set; } = "";   
+        public string GestorResponsavel { get; set; } = "";
     }
 }

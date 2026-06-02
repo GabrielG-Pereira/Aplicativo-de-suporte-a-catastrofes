@@ -18,7 +18,7 @@
                     <td>@item.Temporario</td>
                     <td>
                         <div class="button-group">
-                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true" />
+                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true" OnClick="NavegarParaDetalhes" />
                         </div>
                     </td>
                 </tr>
@@ -34,6 +34,11 @@
     private void AdicionarEvento()
     {
         Navigation.NavigateTo("/adicionar-ponto");
+    }
+
+    private void NavegarParaDetalhes()
+    {
+        Navigation.NavigateTo("/alterar-ponto");
     }
 
     // Simulação de dados (Mock)

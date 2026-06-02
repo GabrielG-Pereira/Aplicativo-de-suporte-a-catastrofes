@@ -12,8 +12,8 @@
     
     
     <div class="button">
-        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
-        <SoteriaButton Text="Voltar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
+        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" />
+        <SoteriaButton Text="Voltar" Color="outline" FullWidth="true" OnClick="Voltar" />
     </div>
 </div>
 
@@ -22,7 +22,7 @@
 @code {
     private List<string> status = new() { "Ativo", "Encerrado", "Alerta Crítico" }; // ENUM
 
-    private void ProcessarAdicionar()
+    private void Voltar()
     {
         Navigation.NavigateTo("/eventos-ativos");
     }
