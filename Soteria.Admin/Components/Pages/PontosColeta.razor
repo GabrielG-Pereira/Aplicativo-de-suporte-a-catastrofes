@@ -1,0 +1,54 @@
+﻿@page "/pontos"
+@layout SidebarLayout
+@inject NavigationManager Navigation
+
+
+<div class="page-container">
+    <div class="page-header">
+        <SoteriaTitle Text="PONTOS DE COLETA ATIVOS" />
+        <SoteriaButton Text="Adicionar" Color="blue" OnClick="AdicionarEvento" />
+    </div>
+    <div class="content-wrapper">
+        <SoteriaTable Headers="@(new List<string> { "Pontos", "ID", "Temporario" })">
+            @foreach (var item in listaMock)
+            {
+                <tr>
+                    <td>@item.Ponto</td>
+                    <td>@item.Id</td>
+                    <td>@item.Temporario</td>
+                    <td>
+                        <div class="button-group">
+                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true" />
+                        </div>
+                    </td>
+                </tr>
+            }
+        </SoteriaTable>
+
+    </div>
+</div>
+
+
+@code {
+
+    private void AdicionarEvento()
+    {
+        Navigation.NavigateTo("/adicionar-ponto");
+    }
+
+    // Simulação de dados (Mock)
+    private List<PontoItem> listaMock = new()
+    {
+        new PontoItem { Ponto = "Ponto de Coleta 1", Id = 1, Temporario = false },
+        new PontoItem { Ponto = "Ponto de Coleta 2", Id = 2, Temporario = false },
+        new PontoItem { Ponto = "Ponto de Coleta 3", Id = 3, Temporario = true },
+    };
+
+    public class PontoItem
+    {
+        public string Ponto { get; set; } = "";
+        public int Id { get; set; } 
+        public bool Temporario { get; set; } = false;
+    }
+   
+}

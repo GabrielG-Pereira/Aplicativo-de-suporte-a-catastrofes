@@ -1,0 +1,27 @@
+﻿.page-container {
+    max-width: 1200px;
+    margin: 5rem auto; /* Centraliza tudo dentro dele */
+    width: 100%;
+}
+
+.page-header {
+    border-bottom: 1px solid #E6E6F0;
+    margin-bottom: 3rem;
+}
+
+.page-inputs {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+    gap: 2rem;
+}
+
+.page-inputs > * {
+    flex: 1;
+}

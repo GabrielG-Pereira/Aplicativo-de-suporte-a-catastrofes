@@ -1,0 +1,32 @@
+﻿@page "/adicionar-ponto"
+@inject NavigationManager Navigation
+
+
+<div class="page-container">
+    <div class="page-header"><SoteriaTitle Text="ADICIONAR PONTO" /></div>
+    <SoteriaInput Label="Nome do ponto " Type="textarea" />
+    <SoteriaInput Label="Endereço" Type="textarea" />
+    <SoteriaInput Label="Contato" Type="textarea" />
+    
+    <div class="page-inputs">
+        <SoteriaSelect Label="Temporário" Options="@(new List<string> { "Sim", "Não" })" />
+        <SoteriaSelect Label="Gestor Responsável" Options="@(new List<string> { "Gestor 1", "Gestor 2" })" />
+    </div>
+
+       
+    
+    <div class="button">
+        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="ProcessarAdicionar" />
+        <SoteriaButton Text="Voltar" Color="outline" FullWidth="true" OnClick="ProcessarAdicionar" />
+    </div>
+</div>
+
+
+
+@code {
+
+    private void ProcessarAdicionar()
+    {
+        Navigation.NavigateTo("/pontos  ");
+    }
+}
