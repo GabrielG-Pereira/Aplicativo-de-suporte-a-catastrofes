@@ -10,31 +10,39 @@
         <SoteriaTitle Text="Informações do Evento" />
 
         <SoteriaInfoField Label="Especialidade necessária"
-                          Valor="@especialidadeNecessaria" />
+                          Valor="@especialidadeNecessaria" 
+                          Destaque="true" />
 
         <SoteriaInfoField Label="Título"
-                          Valor="@evento.Titulo" />
+                          Valor="@evento.Titulo" 
+                          Destaque="true"/>
 
         <div class="descricao-campo">
-            <span class="descricao-label">Descrição</span>
-            <div class="descricao-valor">@evento.Descricao</div>
+            
+            <SoteriaInfoField Label="Descrição"
+                              Valor="@evento.Descricao"
+                              Destaque="true" />
+            
         </div>
 
         <SoteriaInfoField Label="Localização"
-                          Valor="@localizacaoFormatada" />
+                          Valor="@localizacaoFormatada" 
+                          Destaque="true"/>
 
         <div class="datas-linha">
             <div class="data-item">
-                <span class="data-label">Ativo</span>
-                <span class="data-valor">@(evento.Status == Status.Ativo ? "Sim" : "Não")</span>
+                <SoteriaInfoField Label="Ativo"
+                                  Valor="@(evento.Status == Status.Ativo ? "Sim" : "Não")"
+                                  Destaque="true" />
             </div>
             <div class="data-item">
-                <span class="data-label">Data de Início</span>
-                <span class="data-valor">@evento.DataInicio.ToString("dd/MM/yyyy")</span>
+                <SoteriaInfoField Label="Ativo"
+                                  Valor="@evento.DataInicio.ToString("dd/MM/yyyy")"
+                                  Destaque="true" />
             </div>
         </div>
 
-        <SoteriaButton Text="Inscrever-se" OnClick="Inscrever" />
+        <SoteriaButton Text="Inscrever-se" OnClick="Inscrever" Color="yellow" FullWidth="true"/>
 
     </div>
 </div>
@@ -65,6 +73,6 @@
     private void Inscrever()
     {
         // TODO: chamar API para registrar inscrição
-        NavManager.NavigateTo("/demandas");
+        NavManager.NavigateTo("/eventos-inscritos");
     }
 }

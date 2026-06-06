@@ -34,15 +34,15 @@
                              stroke="#002A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                             <circle cx="12" cy="7" r="4" />
-                        </svg>
+                        </svg> 
                     </div>
                     <div class="evento-textos">
-                        <span class="evento-rotulo">Status</span>
-                        <span class="evento-valor">@evento.Status</span>
+                        <span class="evento-rotulo">Especialidade necessitada</span>
+                        <span class="evento-valor">@evento.Especialidade</span>
                     </div>
                 </div>
 
-                <SoteriaButton Text="Ver detalhes" OnClick="@(() => VerDetalhes(evento.Id))" />
+                <SoteriaButton Text="Ver detalhes" OnClick="@(() => VerDetalhes(evento.Id))" Color="yellow" FullWidth="true"/>
             </div>
         }
 
@@ -58,19 +58,12 @@
             Id         = 1,
             Titulo     = "Alagamento no bairro do Vitor",
             Descricao  = "Alagamento severo na região, voluntários necessários.",
+            Especialidade = "Medico",
             Status     = Status.Ativo,
             DataInicio = new DateTime(2026, 03, 06),
             Local      = new Coordenada { Latitude = -23.006, Longitude = -45.559 }
         },
-        new Evento
-        {
-            Id         = 2,
-            Titulo     = "Deslizamento na Serra",
-            Descricao  = "Deslizamento na área serrana, socorro necessário.",
-            Status     = Status.Critico,
-            DataInicio = new DateTime(2026, 03, 10),
-            Local      = new Coordenada { Latitude = -23.180, Longitude = -45.890 }
-        }
+    
     };
 
     private void VerDetalhes(int id) => NavManager.NavigateTo($"/eventos/{id}");

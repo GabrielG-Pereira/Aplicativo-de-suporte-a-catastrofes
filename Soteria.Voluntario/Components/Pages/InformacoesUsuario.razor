@@ -1,6 +1,7 @@
 @page "/perfil"
 @using Soteria.Voluntario.Models
 
+<CabecalhoVoluntario />
 
 
 <div class="page-container">
@@ -9,23 +10,28 @@
         <SoteriaTitle Text="Informações do Usuário" />
 
         <SoteriaInfoField Label="Nome"
-                          Valor="@voluntario.Nome" />
+                          Valor="@voluntario.Nome"
+                          Destaque="true" />
 
         <SoteriaInfoField Label="Endereço"
                           Valor="@voluntario.Endereco"
                           Destaque="true" />
 
         <SoteriaInfoField Label="Contato"
-                          Valor="@voluntario.Contato" />
+                          Valor="@voluntario.Contato"
+                          Destaque="true" />
 
         <SoteriaInfoField Label="Email"
-                          Valor="@voluntario.Email" />
+                          Valor="@voluntario.Email"
+                          Destaque="true" />
 
         <SoteriaInfoField Label="Especialidade"
-                          Valor="@voluntario.Especialidade.ToString()" />
+                          Valor="@voluntario.Especialidade.ToString()"
+                          Destaque="true" />
 
         <SoteriaInfoField Label="Disponível como voluntário?"
-                          Valor="@(voluntario.Disponivel ? "Sim" : "Não")" />
+                          Valor="@(voluntario.Disponivel ? "Sim" : "Não")" 
+                          Destaque="true" />
 
     </div>
 </div>

@@ -1,4 +1,4 @@
-@page "/demandas"
+@page "/eventos-inscritos"
 @using Soteria.Voluntario.Models
 @inject NavigationManager NavManager
 
@@ -47,17 +47,20 @@
                     </svg>
                 </div>
                 <div class="evento-textos">
-                    <span class="evento-rotulo">Atualização</span>
-                    <span class="evento-valor">Há 1 hora</span>
+                    <span class="evento-rotulo">Especialidade necessitada</span>
+                    <span class="evento-valor">Medico</span>
                 </div>
             </div>
 
             <SoteriaButton Text="Ver detalhes"
-                           OnClick="@(() => NavManager.NavigateTo($"/eventos/{eventoAtivo.Id}"))" />
+                           OnClick="@(() => NavManager.NavigateTo($"/eventos/{eventoAtivo.Id}"))"  Color="yellow" FullWidth="true"/>
         </div>
 
-        <SoteriaButton Text="✓  Cheguei ao evento" OnClick="ConfirmarChegada" />
-        <SoteriaButtonOutline Text="✕  Cancelar inscrição" OnClick="CancelarInscricao" />
+        <div class="buttons">
+            <SoteriaButton Text="✓  Cheguei ao evento" OnClick="ConfirmarChegada" Color="yellow" FullWidth="true"/>
+            <SoteriaButton Text="✕  Cancelar inscrição" OnClick="ConfirmarChegada" Color="outline" FullWidth="true" />
+        </div>
+       
 
     </div>
 </div>
@@ -66,12 +69,13 @@
     // TODO: buscar da API o evento em que o voluntário está inscrito
     private Evento eventoAtivo = new Evento
     {
-        Id         = 1,
-        Titulo     = "Alagamento no bairro do Vitor",
-        Descricao  = "Alagamento severo na região.",
-        Status     = Status.Ativo,
+        Id = 1,
+        Titulo = "Alagamento no bairro do Vitor",
+        Descricao = "Alagamento severo na região, voluntários necessários.",
+        Especialidade = "Medico",
+        Status = Status.Ativo,
         DataInicio = new DateTime(2026, 03, 06),
-        Local      = new Coordenada { Latitude = -23.006, Longitude = -45.559 }
+        Local = new Coordenada { Latitude = -23.006, Longitude = -45.559 }
     };
 
     private void ConfirmarChegada()

@@ -23,7 +23,7 @@
 
 .datas-linha {
     display: flex;
-    gap: 40px;
+    justify-content: space-between;
     margin-bottom: 8px;
 }
 

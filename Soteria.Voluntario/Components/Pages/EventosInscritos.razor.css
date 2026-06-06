@@ -115,3 +115,11 @@
     color: #8C9CA9;
     font-size: 0.85rem;
 }
+
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+}
