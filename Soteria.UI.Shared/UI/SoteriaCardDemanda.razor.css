@@ -1,0 +1,61 @@
+﻿.card-demanda {
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    font-family: var(--font-padrao);
+}
+
+.card-info {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.demanda-titulo {
+    color: var(--azul-escuro);
+    font-weight: var(--font-titulo-peso);
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+}
+
+.demanda-categoria, .demanda-detalhe {
+    font-size: 0.85rem;
+    color: #444;
+    margin: 4px 0;
+}
+
+.card-status {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70px;
+    text-align: center;
+}
+
+.status-label {
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-top: 4px;
+}
+
+.status-valor {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Variantes de Cores */
+.status-critico {
+    color: #FF0000;
+}
+
+.status-medio {
+    color: #F0A500;
+}
+
+.status-estavel {
+    color: #00C853;
+}

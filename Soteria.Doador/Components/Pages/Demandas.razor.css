@@ -1,0 +1,14 @@
+﻿
+.page-container {
+    background: var(--cor-fundo);
+    min-height: 100vh; /* Ocupa no mínimo 100% da altura visual */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.components {
+    padding: 2rem;
+}

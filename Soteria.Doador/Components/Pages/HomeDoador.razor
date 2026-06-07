@@ -2,9 +2,15 @@
 @using Soteria.UI.Shared.UI
 <CabecalhoDoador />
 <div class="page-container">
-    <SoteriaTitle Text="LOCAIS PRÓXIMOS DE VOCÊ: " />
-    <MapaDinamico />
-    <CartaoLocalDoacao />
+    <div class="components">
+        <SoteriaTitle Text="LOCAIS PRÓXIMOS DE VOCÊ: " />
+        <SoteriaMap Latitude="-23.025" Longitude="-45.558" />
+        <CartaoLocalDoacao Id="123"
+                           Nome="Igreja São Luiz"
+                           Distancia="10km do local"
+                           Tipo="Fixo" />
+    </div>
+    
 </div>
 
 

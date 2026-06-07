@@ -1,0 +1,18 @@
+.map-border {
+    border: 8px solid #1A4263; /* Azul escuro do tema */
+    border-radius: 35px;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.map-container {
+    height: 300px;
+    width: 100%;
+    filter: grayscale(0.2) brightness(1.05); /* Deixa levemente mais cinza e claro */
+}
+
+/* Garante que o fundo do mapa não fique cinza escuro enquanto carrega */
+.leaflet-container {
+    background: #f8f9fa !important;
+}

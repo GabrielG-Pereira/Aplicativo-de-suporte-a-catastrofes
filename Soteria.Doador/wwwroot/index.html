@@ -1,6 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        window.setupMap = (elementId, latitude, longitude) => {
+            var map = L.map(elementId, {
+                zoomControl: false
+            }).setView([latitude, longitude], 15);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap'
+            }).addTo(map);
+
+            // SVG do Marcador Amarelo (Pin)
+            const pinSvg = `
+        <svg viewBox="0 0 24 24" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 0C7.58 0 4 3.58 4 8c0 5.25 7 13 8 16 1-3 8-10.75 8-16 0-4.42-3.58-8-8-8z" fill="#F0A500"/>
+            <circle cx="12" cy="8" r="3" fill="white"/>
+        </svg>`;
+
+            var customIcon = L.divIcon({
+                className: 'custom-pin',
+                html: pinSvg,
+                iconSize: [40, 40],    // Tamanho do ícone
+                iconAnchor: [20, 40]   // Ajusta para a ponta do pin ficar no local exato (metade da largura, total da altura)
+            });
+
+            L.marker([latitude, longitude], { icon: customIcon }).addTo(map);
+        };
+    </script>
+
+
+    <link rel="stylesheet" href="_content/Soteria.UI.Shared/soteria-theme.css" />
+    <link rel="stylesheet" href="_content/Soteria.UI.Shared/Soteria.UI.Shared.bundle.scp.css" />
+    <link rel="stylesheet" href="Soteria.Public.UI..css" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>Soteria.Doador</title>
@@ -8,22 +44,6 @@
     <link rel="stylesheet" href="app.css" />
     <link rel="stylesheet" href="Soteria.Doador.styles.css" />
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="_content/Soteria.UI.Shared/soteria-theme.css" /> <!--1-->
-    <!--<link rel="stylesheet" href="_content/Soteria.UI.Shared/Soteria.UI.Shared.bundle.scp.css" />
-    <link rel="stylesheet" href="_content/Soteria.Public.UI/Soteria.Public.UI.bundle.scp.css" />-->
-    <!--29_04_2026(pablo): não sei pq, mas as fontes foram aplicadas às variáveis depois de inserir a linha "1" acima. Se descomentar
-        as linhas acima a interface vai ficar branca e sem funcionalidades-->
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-    <!-- CSS do Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <!-- JavaScript do Leaflet -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-    <script src="mapa.js"></script>
 </head>
 
 <body>

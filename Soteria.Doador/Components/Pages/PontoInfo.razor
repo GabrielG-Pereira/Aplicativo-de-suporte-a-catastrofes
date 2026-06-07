@@ -1,0 +1,56 @@
+﻿@page "/informacoes-ponto/{id}"
+@inject NavigationManager NavManager
+
+<CabecalhoDoador />
+<div class="page-container">
+    <div class="components">
+        <SoteriaTitle Text="INFORMAÇÕES DO PONTO DE COLETA" />
+
+        <div class="card-demanda">
+            <div class="info-secao">
+                <SoteriaCardTitle Text="Nome" />
+                <SoteriaText Text="@ponto.Nome" />
+            </div>
+
+            <div class="info-secao">
+                <SoteriaCardTitle Text="Localização" />
+                <SoteriaText Text="@ponto.Endereco" />
+            </div>
+
+            <div class="info-secao">
+                <SoteriaCardTitle Text="Contato" />
+                <SoteriaText Text="@ponto.Contato" />
+            </div>
+
+            <div class="info-secao">
+                <SoteriaCardTitle Text="Tipo de ponto" />
+                <SoteriaText Text="@ponto.Tipo" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Id { get; set; }
+    private PontoModel ponto = new();
+
+    protected override void OnInitialized()
+    {
+        // Mock de dados para teste (Simulando vinda do Backend)
+        ponto = new PontoModel
+        {
+            Nome = "Igreja São Luiz",
+            Endereco = "R. Domingues Ribas, 52-166 - Vila Iapi, Taubaté - SP, 12060-000",
+            Contato = "(12) 99678 - 1231",
+            Tipo = "Fixo"
+        };
+    }
+
+    public class PontoModel
+    {
+        public string Nome { get; set; } = "";
+        public string Endereco { get; set; } = "";
+        public string Contato { get; set; } = "";
+        public string Tipo { get; set; } = "";
+    }
+}

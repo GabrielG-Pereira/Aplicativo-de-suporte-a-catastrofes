@@ -1,0 +1,20 @@
+﻿@inject IJSRuntime JSRuntime
+
+<div class="map-border">
+    <div id="@MapId" class="map-container"></div>
+</div>
+
+@code {
+    [Parameter] public string MapId { get; set; } = "map";
+    [Parameter] public double Latitude { get; set; }
+    [Parameter] public double Longitude { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Chama o JavaScript passando as coordenadas dinâmicas
+            await JSRuntime.InvokeVoidAsync("setupMap", MapId, Latitude, Longitude);
+        }
+    }
+}

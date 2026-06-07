@@ -1,22 +1,16 @@
 ﻿@using Soteria.UI.Shared.UI
-
 @inject NavigationManager NavManager
 
-@* fazer um "cartao dinamico", que ao ser solicitado com TAL texto, título, info, aparece *@
 <div class="cartao-local-doacao">
-    <h3 class="titulo-abrigo">Igreja São Luiz</h3>
+    <h3 class="titulo-abrigo">@Nome</h3>
+    
     <div class="info-linha">
         <div class="icone-fundo">
-            <!--<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#002A4A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-        <circle cx="12" cy="10" r="3"></circle>
-    </svg>-->
-        <img src="Imagens/IconeLocalizacao.svg" alt="Icone Localização" />
-
+            <img src="Imagens/IconeLocalizacao.svg" alt="Icone Localização" />
         </div>
         <div class="textos">
             <span class="rotulo">Distância</span>
-            <span class="valor">5km do local</span>
+            <span class="valor">@Distancia</span>
         </div>
     </div>
 
@@ -26,19 +20,23 @@
         </div>
         <div class="textos">
             <span class="rotulo">Tipo</span>
-            <span class="valor">Fixo</span>
+            <span class="valor">@Tipo</span>
         </div>
     </div>
-    @* <button class="botao-detalhes">Ver detalhes</button> *@
-    <SoteriaButton Text="Ver detalhes" OnClick="AbrirPaginaDemandas" />
+
+    <SoteriaButton Text="Ver detalhes" OnClick="AbrirPaginaDemandas" Color="yellow" FullWidth="true" />
 </div>
 
-
 @code {
+    // Parâmetros para integração com o backend
+    [Parameter] public string Id { get; set; } = "";
+    [Parameter] public string Nome { get; set; } = "Nome do Local";
+    [Parameter] public string Distancia { get; set; } = "0km";
+    [Parameter] public string Tipo { get; set; } = "Fixo";
+
     void AbrirPaginaDemandas()
     {
-        // Usa o serviço para mudar a rota.
-        // Coloque entre aspas o endereço exato configurado na página de destino.
-        NavManager.NavigateTo("/demandas");
+        // Ao navegar, passamos o ID para o backend saber qual ponto carregar
+        NavManager.NavigateTo($"/demandas/{Id}");
     }
 }

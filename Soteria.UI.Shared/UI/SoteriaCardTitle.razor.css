@@ -1,0 +1,7 @@
+﻿.titulo {
+    color: var(--azul-escuro);
+    font-weight: var(--font-titulo-peso);
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    font-family: var(--font-padrao);
+}

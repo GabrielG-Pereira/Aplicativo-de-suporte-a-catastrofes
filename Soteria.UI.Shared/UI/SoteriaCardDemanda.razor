@@ -1,0 +1,33 @@
+﻿<div class="card-demanda">
+    <div class="card-info">
+        <h4 class="demanda-titulo">@Titulo</h4>
+        <p class="demanda-categoria">Categoria: @Categoria</p>
+        <p class="demanda-detalhe">@Descricao</p>
+    </div>
+
+    <div class="card-status @StatusClass">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 5 9 14H3l9-14z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        <span class="status-label">Nível</span>
+        <span class="status-valor">@Status</span>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Titulo { get; set; } = "";
+    [Parameter] public string Categoria { get; set; } = "";
+    [Parameter] public string Descricao { get; set; } = "";
+    [Parameter] public string Status { get; set; } = "Estável"; // Crítico, Médio, Estável
+
+    // Define a classe CSS baseada no status para mudar a cor
+    private string StatusClass => Status.ToLower() switch
+    {
+        "crítico" or "critico" => "status-critico",
+        "médio" or "medio" => "status-medio",
+        "estável" or "estavel" => "status-estavel",
+        _ => "status-estavel"
+    };
+}

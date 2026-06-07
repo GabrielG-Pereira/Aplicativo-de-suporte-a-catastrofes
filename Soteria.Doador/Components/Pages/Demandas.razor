@@ -1,10 +1,78 @@
-﻿@page "/demandas"
+﻿@page "/demandas/{id}"
+
+@inject NavigationManager NavManager
 <CabecalhoDoador />
 
 <div class="page-container">
-    <h3>Demandas</h3>
-</div>
+    <div class="components">
+        <SoteriaTitle Text="@($"DEMANDAS DO PONTO DE APOIO: {pontoDeApoio.Nome}")" />
 
+        @foreach (var item in listaDemandas)
+        {
+            <SoteriaCardDemanda Titulo="@item.Titulo"
+                                Categoria="@item.Categoria"
+                                Descricao="@item.Descricao"
+                                Status="@item.Status" />
+        }
+
+        <SoteriaButton Text="Ver detalhes do ponto" OnClick="@IrParaInformacoes" Color="yellow" FullWidth="true"/>
+      
+    </div>
+    
+</div>
 @code {
 
+    // Captura o ID vindo da URL
+    [Parameter] public string Id { get; set; }
+
+    // Variável que representa o Ponto
+    private PontoModel pontoDeApoio = new();
+
+
+    // Representa as demandas
+    private List<Demanda> listaDemandas = new()
+    {
+        new Demanda { Titulo = "Água", Categoria = "Alimentos", Status = "Crítico", Descricao = "100 fardos de 500ml" },
+        new Demanda { Titulo = "Agasalhos", Categoria = "Roupas", Status = "Médio", Descricao = "20 unidades" },
+        new Demanda { Titulo = "Comida", Categoria = "Roupas", Status = "Estável", Descricao = "Quantidade suficiente disponível." }
+    };
+
+    protected override void OnInitialized()
+    {
+        // Simulando a busca no banco pelo ID
+        // No futuro: pontoDeApoio = await PontoService.GetById(Id);
+        pontoDeApoio = new PontoModel
+        {
+            Id = Id,
+            Nome = "Igreja São Luiz",
+            Endereco = "R. Domingues Ribas, 52-166 - Vila Iapi, Taubaté - SP, 12060-000",
+            Contato = "(12) 99678 - 1231",
+            Tipo = "Fixo"
+        };
+    }
+
+    private void IrParaInformacoes()
+    {
+        // Navega para a tela de detalhes enviando o ID
+        NavManager.NavigateTo($"/informacoes-ponto/{Id}");
+    }
+
+    // Modelo para facilitar a implementação do Backend
+    public class PontoModel
+    {
+        public string Id { get; set; } = "";
+        public string Nome { get; set; } = "";
+        public string Endereco { get; set; } = "";
+        public string Contato { get; set; } = "";
+        public string Tipo { get; set; } = "";
+    }
+
+    // Modelo de demanda
+    public class Demanda
+    {
+        public string Titulo { get; set; }
+        public string Categoria { get; set; }
+        public string Status { get; set; }
+        public string Descricao { get; set; }
+    }
 }

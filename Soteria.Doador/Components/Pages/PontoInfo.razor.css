@@ -1,0 +1,29 @@
+﻿.card-demanda {
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column; /* Empilha os campos verticalmente */
+    gap: 25px; /* Espaço entre as seções de informação */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.info-secao {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.page-container {
+    background: var(--cor-fundo);
+    min-height: 100vh; /* Ocupa no mínimo 100% da altura visual */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding-bottom: 20px;
+}
+
+.components {
+    padding: 2rem;
+}
