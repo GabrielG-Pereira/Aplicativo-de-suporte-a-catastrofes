@@ -1,0 +1,93 @@
+﻿@page "/dashboard"
+
+<div class="main-layout">
+    <SoteriaSidebar />
+
+    <main class="dashboard-container">
+        <SoteriaTitle Text="PAINEL DE GESTÃO - RESPOSTA A DESASTRES" />
+
+        <!-- CARDS DE RESUMO -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <label>Eventos Ativos</label>
+                <span class="value">@totalEventosAtivos</span>
+            </div>
+            <div class="stat-card">
+                <label>Voluntários em Campo</label>
+                <span class="value blue">@voluntariosEmCampo</span>
+            </div>
+            <div class="stat-card danger">
+                <label>Pontos em Estado Crítico</label>
+                <span class="value">@pontosCriticos</span>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <!-- GRÁFICO: VOLUNTÁRIOS POR EVENTO -->
+            <div class="chart-box">
+                <h3>Alocação de Voluntários por Evento</h3>
+                @foreach (var item in voluntariosPorEvento)
+                {
+                    <div class="bar-group">
+                        <div class="bar-labels">
+                            <span>@item.NomeEvento</span>
+                            <span>@item.QuantidadeVoluntarios Voluntários</span>
+                        </div>
+                        <div class="bar-bg">
+                            @* Calculamos a largura da barra baseada em um teto técnico (ex: 50) para visualização *@
+                            <div class="bar-fill" style="width: @(item.QuantidadeVoluntarios * 2)%; background-color: #1A4263;"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- GRÁFICO: ESPECIALIDADES DISPONÍVEIS -->
+            <div class="chart-box">
+                <h3>Especialidades Disponíveis</h3>
+                <div class="specialties-list">
+                    @foreach (var esp in especialidades)
+                    {
+                        <div class="specialty-item">
+                            <span class="esp-name">@esp.Nome</span>
+                            <span class="esp-count">@esp.Quantidade</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+@code {
+    private int totalEventosAtivos = 8;
+    private int voluntariosEmCampo = 124;
+    private int pontosCriticos = 3;
+
+    private List<VoluntariosEventoModel> voluntariosPorEvento = new()
+    {
+        new VoluntariosEventoModel { NomeEvento = "Alagamento Bairro Vitor", QuantidadeVoluntarios = 42 },
+        new VoluntariosEventoModel { NomeEvento = "Deslizamento Encosta Sul", QuantidadeVoluntarios = 15 },
+        new VoluntariosEventoModel { NomeEvento = "Inundação Centro", QuantidadeVoluntarios = 28 }
+    };
+
+    // Modelo para facilitar a query JOIN entre Eventos e Voluntario_Evento
+    public class VoluntariosEventoModel
+    {
+        public string NomeEvento { get; set; }
+        public int QuantidadeVoluntarios { get; set; }
+    }
+    private List<EspecialidadeModel> especialidades = new()
+    {
+        new EspecialidadeModel { Nome = "Médicos", Quantidade = 12 },
+        new EspecialidadeModel { Nome = "Enfermeiros", Quantidade = 45 },
+        new EspecialidadeModel { Nome = "Bombeiros", Quantidade = 30 },
+        new EspecialidadeModel { Nome = "Logística", Quantidade = 37 }
+    };
+
+  
+    public class EspecialidadeModel
+    {
+        public string Nome { get; set; } = "";
+        public int Quantidade { get; set; }
+    }
+}

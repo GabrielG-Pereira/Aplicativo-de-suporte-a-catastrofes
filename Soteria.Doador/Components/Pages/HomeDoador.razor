@@ -1,19 +1,63 @@
 ﻿@page "/"
 @using Soteria.UI.Shared.UI
+@inject NavigationManager NavManager
+
 <CabecalhoDoador />
 <div class="page-container">
     <div class="components">
         <SoteriaTitle Text="LOCAIS PRÓXIMOS DE VOCÊ: " />
-        <SoteriaMap Latitude="-23.025" Longitude="-45.558" />
-        <CartaoLocalDoacao Id="123"
-                           Nome="Igreja São Luiz"
-                           Distancia="10km do local"
-                           Tipo="Fixo" />
+        
+        @* Passando as coordenadas vindas do @code *@
+        <SoteriaMap Latitude="@Lat" Longitude="@Lon" />
+
+        @if (pontoDeApoio != null)
+        {
+            <CartaoLocalDoacao Id="@pontoDeApoio.Id"
+                               Nome="@pontoDeApoio.Nome"
+                               Distancia="@pontoDeApoio.Distancia"
+                               Tipo="@pontoDeApoio.Tipo"
+                               AcaoBotao="@NavegarParaDemandas" />
+        }
     </div>
-    
 </div>
 
-
 @code {
+    // Coordenadas centrais (Taubaté)
+    private double Lat { get; set; } = -23.025;
+    private double Lon { get; set; } = -45.558;
 
+    private PontoModel pontoDeApoio = new();
+
+    protected override void OnInitialized()
+    {
+        // Simulando dados que viriam do backend filtrados por proximidade
+        pontoDeApoio = new PontoModel
+        {
+            Id = "001-TESTE", // ID manual para a rota não quebrar
+            Nome = "Igreja São Luiz",
+            Distancia = "10km do local",
+            Tipo = "Fixo",
+            Lat = -23.025, // Coordenadas do ponto de apoio
+            Lon = -45.558
+        };
+    }
+
+    private void NavegarParaDemandas()
+    {
+        // Se o Id for nulo ou vazio, a página não será encontrada (404)
+        if (!string.IsNullOrEmpty(pontoDeApoio.Id))
+        {
+            NavManager.NavigateTo($"/demandas/{pontoDeApoio.Id}");
+        }
+    }
+
+    public class PontoModel
+    {
+        public string Id { get; set; } = "";
+        public string Nome { get; set; } = "";
+        public string Distancia { get; set; } = "";
+        public string Tipo { get; set; } = "";
+        public double Lat { get; set; } = 0;
+        public double Lon { get; set; } = 0;
+    }
 }

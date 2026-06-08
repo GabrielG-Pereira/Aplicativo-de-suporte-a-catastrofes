@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <SoteriaButton Text="Ver detalhes" OnClick="AbrirPaginaDemandas" Color="yellow" FullWidth="true" />
+    <SoteriaButton Text="Ver detalhes" OnClick="@AcaoBotao" Color="yellow" FullWidth="true" />
 </div>
 
 @code {
@@ -33,10 +33,7 @@
     [Parameter] public string Nome { get; set; } = "Nome do Local";
     [Parameter] public string Distancia { get; set; } = "0km";
     [Parameter] public string Tipo { get; set; } = "Fixo";
+    [Parameter] public EventCallback AcaoBotao { get; set; }
 
-    void AbrirPaginaDemandas()
-    {
-        // Ao navegar, passamos o ID para o backend saber qual ponto carregar
-        NavManager.NavigateTo($"/demandas/{Id}");
-    }
+
 }

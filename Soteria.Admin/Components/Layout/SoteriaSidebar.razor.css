@@ -8,7 +8,7 @@
     margin-top: 1rem;
 }
 
-.sidebar-header {
+::deep .sidebar-header {
     padding: 30px 20px 10px 20px;
     color: var(--amarelo);
     font-family: var(--font-padrao);
@@ -17,12 +17,13 @@
     letter-spacing: 1px;
 }
 
-.sidebar-nav {
+::deep .sidebar-nav {
     display: flex;
     flex-direction: column;
 }
 
-.nav-item {
+::deep .nav-item {
+    text-decoration: none !important;
     padding: 15px 20px;
     color: var(--azul-escuro); /* Azul escuro do texto */
     font-family: var(--font-padrao);
@@ -31,7 +32,7 @@
     transition: all 0.2s;
 }
 
-    .nav-item:hover {
+    ::deep .nav-item:hover {
         background: var(--gradiente-azul);
         color: white;
     }
