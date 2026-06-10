@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Soteria.UI.Shared\Soteria.UI.Shared.csproj" />
+    <ProjectReference Include="\\RUBACK-SERVER\Redireciona_Pasta$\davi.admin\Downloads\Soteria.Sql\Soteria.Sql\Soteria.Sql.csproj" />
   </ItemGroup>
 
 </Project>

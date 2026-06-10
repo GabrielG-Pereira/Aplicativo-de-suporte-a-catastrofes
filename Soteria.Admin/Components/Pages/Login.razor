@@ -1,20 +1,59 @@
-﻿@page "/"
+﻿@page "/login"
+@using Soteria.Sql
+@using Soteria.Sql.Models
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
 
 <div class="page-container">
     <div class="form-card">
+
+        @if (!string.IsNullOrEmpty(mensagemErro))
+        {
+            <div class="alert alert-danger">@mensagemErro</div>
+        }
+
+ 
         <img src="images/Logo_Soteria.jpg" alt="Logo Soteria" class="login-logo " />
-        <SoteriaInput Label="Usuário" />
-        <SoteriaInput Label="Senha" />
+        <SoteriaInput Label="E-mail" @bind-Value="email" />
+        <SoteriaInput Label="Senha" Type="password" @bind-Value="senha" />
+        
         <SoteriaButton Text="Cadastrar" Color="yellow" FullWidth="true" OnClick="ProcessarLogin" />
+        
+        
     </div>
 </div>
 
 @code {
+    private string email = "";
+    private string senha = "";
+    private string mensagemErro = "";
 
     private void ProcessarLogin()
     {
-    
-        Console.WriteLine("BOTAO CLICADO");
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(senha))
+        {
+            mensagemErro = "Por favor, preencha todos os campos.";
+            return;
+        }
+
+        var usuario = Sql.ValidarLogin(email, senha);
+
+        if (usuario != null)
+        {
+            // Lógica de Redirecionamento conforme sua solicitação
+            if (usuario.Tipo == "Gestor")
+            {
+                Navigation.NavigateTo("/demandas");
+            }
+            else if (usuario.Tipo == "Voluntario")
+            {
+                // Conforme seu pedido: Administradores (Voluntários no DB) vão para eventos-ativos
+                Navigation.NavigateTo("/eventos-ativos");
+            }
+        }
+        else
+        {
+            mensagemErro = "E-mail ou senha inválidos.";
+        }
     }
-   
 }
