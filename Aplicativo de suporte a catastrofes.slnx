@@ -1,5 +1,4 @@
 <Solution>
-  <Project Path="//RUBACK-SERVER/Redireciona_Pasta$/davi.admin/Downloads/Soteria.Sql/Soteria.Sql/Soteria.Sql.csproj" />
   <Project Path="Aplicativo de suporte a catastrofes/Aplicativo de suporte a catastrofes.csproj">
     <Deploy Solution="Debug|*" />
   </Project>
@@ -8,6 +7,7 @@
     <Deploy Solution="Debug|*" />
   </Project>
   <Project Path="Soteria.Public/Soteria.Public.csproj" />
+  <Project Path="Soteria.Sql/Soteria.Sql.csproj" />
   <Project Path="Soteria.UI.Shared/Soteria.UI.Shared.csproj" Id="6ef21e03-1340-4375-9f2a-c0b1f57b6d4c" />
   <Project Path="Soteria.Voluntario/Soteria.Voluntario.csproj" Id="abd31ff9-d8d7-4247-b59e-7315a4d1e52c">
     <Deploy Solution="Debug|*" />

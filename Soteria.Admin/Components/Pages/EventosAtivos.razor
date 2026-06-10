@@ -1,65 +1,86 @@
 ﻿@page "/eventos-ativos"
 @layout SidebarLayout
+@using Soteria.Sql
+@using Soteria.Sql.Models
 @inject NavigationManager Navigation
-
+@rendermode InteractiveServer
 
 <div class="page-container">
     <div class="page-header">
         <SoteriaTitle Text="EVENTOS ATIVOS" />
         <SoteriaButton Text="Adicionar" Color="blue" OnClick="AdicionarEvento" />
     </div>
-    <div class="content-wrapper">     
-        <SoteriaTable Headers="@(new List<string> { "Eventos", "ID", "Status" })">
-            @foreach (var item in listaMock)
+    <div class="content-wrapper">
+        <SoteriaTable Headers="@(new List<string> { "Evento", "ID ", "Status", "Ações" })">
+            @if (listaEventos == null)
             {
-                <tr>
-                    <td>@item.Evento</td>
-                    <td>@item.Id</td>
-                    <td>@item.Status</td>
-                    <td>
-                        <div class="button-group">
-                            <SoteriaButton Text="Voluntários" Color="yellow" FullWidth="true" OnClick="NavegarParaVoluntarios"/>
-                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true" OnClick="NavegarParaDetalhes"  />
-                        </div>
-                    </td>
-                </tr>
+                <tr><td colspan="4">Carregando eventos...</td></tr>
+            }
+            else if (listaEventos.Count == 0)
+            {
+                <tr><td colspan="4">Nenhum evento ativo encontrado.</td></tr>
+            }
+            else
+            {
+                @foreach (var item in listaEventos)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        @* Mostra apenas os primeiros 8 caracteres do GUID para não quebrar o layout *@
+                        <td>@item.Id.ToString().Substring(0, 8)...</td>
+                        <td>
+                            <span class="status-badge @item.Status.Replace(" ", "-").ToLower()">
+                                @item.Status
+                            </span>
+                        </td>
+                        <td>
+                            <div class="button-group">
+                                @* Passamos o ID via lambda no OnClick *@
+                                <SoteriaButton Text="Voluntários"
+                                               Color="yellow"
+                                               FullWidth="true"
+                                               OnClick="@(() => NavegarParaVoluntarios(item.Id))" />
+                                
+                                <SoteriaButton Text="Ver mais"
+                                               Color="yellow"
+                                               FullWidth="true"
+                                               OnClick="@(() => NavegarParaDetalhes(item.Id))" />
+                            </div>
+                        </td>
+                    </tr>
+                }
             }
         </SoteriaTable>
-
     </div>
 </div>
 
-
 @code {
+    private List<EventoLista>? listaEventos;
+
+    // Carrega os dados assim que a página inicializa
+    protected override void OnInitialized()
+    {
+        CarregarDados();
+    }
+
+    private void CarregarDados()
+    {
+        listaEventos = Sql.ListarEventos();
+    }
 
     private void AdicionarEvento()
     {
         Navigation.NavigateTo("/adicionar-evento");
     }
 
-    private void NavegarParaVoluntarios()
+    // Métodos recebendo o Guid do evento clicado
+    private void NavegarParaVoluntarios(Guid id)
     {
-        Navigation.NavigateTo("/voluntarios");
+        Navigation.NavigateTo($"/voluntarios/{id}");
     }
 
-    private void NavegarParaDetalhes()
+    private void NavegarParaDetalhes(Guid id)
     {
-        Navigation.NavigateTo("/alterar-evento");
+        Navigation.NavigateTo($"/alterar-evento/{id}");
     }
-
-    // Simulação de dados (Mock)
-    private List<EventoItem> listaMock = new()
-    {
-        new EventoItem { Evento = "Alagamento no bairro do Vitor", Id = "001", Status = "Ativo" },
-        new EventoItem { Evento = "Alagamento no bairro do Davi", Id = "001", Status = "Ativo" },
-        new EventoItem { Evento = "Alagamento no bairro do Pablo", Id = "001", Status = "Ativo" },
-    };
-
-    public class EventoItem
-    {
-        public string Evento { get; set; } = "";
-        public string Id { get; set; } = "";
-        public string Status { get; set; } = "";
-    }
-   
-}
+}   

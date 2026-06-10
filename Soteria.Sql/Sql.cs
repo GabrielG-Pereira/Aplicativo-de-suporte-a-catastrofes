@@ -949,5 +949,94 @@ namespace Soteria.Sql
             }
             return lista;
         }
+
+        public static bool InserirEvento(string nome, string descricao, string status)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+
+                // Nota: localizacao é obrigatória (NOT NULL), então inserimos um ponto padrão (0,0)
+                string sql = @"
+            INSERT INTO dbo.evento (nome, descricao, localizacao, status, data_inicio)
+            VALUES (@nome, @descricao, geography::Point(0, 0, 4326), @status, GETDATE())";
+
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@nome", nome);
+                comando.Parameters.AddWithValue("@descricao", descricao);
+                comando.Parameters.AddWithValue("@status", status);
+
+                int linhasAfetadas = comando.ExecuteNonQuery();
+                return linhasAfetadas > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao inserir evento: " + ex.Message);
+                return false;
+            }
+        }
+
+
+        public static EventoLista? BuscarEventoPorIdSoteriaAdmin(Guid id)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "SELECT id, nome, descricao, status FROM evento WHERE id = @id";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                using SqlDataReader reader = comando.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return new EventoLista
+                    {
+                        Id = reader.GetGuid(0),
+                        Nome = reader.GetString(1),
+                        // Aqui tratamos a descrição (que pode conter o endereço do cadastro anterior)
+                        Descricao = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                        Status = reader.GetString(3)
+                    };
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            return null;
+        }
+
+        public static bool AtualizarEvento(Guid id, string nome, string descricao, string status)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "UPDATE evento SET nome = @nome, descricao = @descricao, status = @status WHERE id = @id";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@nome", nome);
+                comando.Parameters.AddWithValue("@descricao", descricao);
+                comando.Parameters.AddWithValue("@status", status);
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch { return false; }
+        }
+
+        public static bool DeletarEvento(Guid id)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "DELETE FROM evento WHERE id = @id";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch { return false; }
+        }
+
+
+
     }
 }

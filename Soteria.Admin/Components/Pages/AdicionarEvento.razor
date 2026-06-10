@@ -1,26 +1,70 @@
 ﻿@page "/adicionar-evento"
+@using Soteria.Sql
 @inject NavigationManager Navigation
-
+@rendermode InteractiveServer
 
 <div class="page-container">
     <div class="page-header"><SoteriaTitle Text="ADICIONAR EVENTO" /></div>
-    <SoteriaInput Label="Título do evento" Type="textarea" />
-    <SoteriaInput Label="Endereço" Type="textarea" />
-    <SoteriaInput Label="Descrição" Type="textarea" Description="true" />
-    <SoteriaSelect Label="Status" Options="status" />
-       
+
+    @if (!string.IsNullOrEmpty(mensagem))
+    {
+        <div class="alert @(sucesso ? "alert-success" : "alert-danger")">@mensagem</div>
+    }
+
+    @* Binds para capturar os dados dos componentes *@
+    <SoteriaInput Label="Título do evento" @bind-Value="titulo" />
     
+    @* O endereço será concatenado na descrição ou ignorado, já que o DB usa geography *@
+    <SoteriaInput Label="Endereço" @bind-Value="endereco" />
     
-    <div class="button">
-        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" />
+    <SoteriaInput Label="Descrição" Type="textarea" Description="true" @bind-Value="descricao" />
+    
+    <SoteriaSelect Label="Status" Options="statusOptions" @bind-Value="statusSelecionado" />
+    
+    <div class="button" style="margin-top: 20px; display: flex; gap: 10px;">
+        <SoteriaButton Text="Adicionar" Color="yellow" FullWidth="true" OnClick="SalvarEvento" />
         <SoteriaButton Text="Voltar" Color="outline" FullWidth="true" OnClick="Voltar" />
     </div>
 </div>
 
-
-
 @code {
-    private List<string> status = new() { "Ativo", "Encerrado", "Alerta Crítico" }; // ENUM
+    private string titulo = "";
+    private string endereco = "";
+    private string descricao = "";
+    private string statusSelecionado = "Ativo";
+    
+    private string mensagem = "";
+    private bool sucesso = false;
+
+    private List<string> statusOptions = new() { "Ativo", "Encerrado", "Alerta Crítico" };
+
+    private void SalvarEvento()
+    {
+        // Validação simples
+        if (string.IsNullOrWhiteSpace(titulo) || string.IsNullOrWhiteSpace(descricao))
+        {
+            mensagem = "Por favor, preencha o título e a descrição.";
+            sucesso = false;
+            return;
+        }
+
+        // Concatenando endereço na descrição para não perder a informação,
+        // já que o banco não tem campo 'string' para endereço, apenas Geography.
+        string descricaoCompleta = $"Endereço: {endereco} | {descricao}";
+
+        bool resultado = Sql.InserirEvento(titulo, descricaoCompleta, statusSelecionado);
+
+        if (resultado)
+        {
+            // Redireciona de volta para a lista após o sucesso
+            Navigation.NavigateTo("/eventos-ativos");
+        }
+        else
+        {
+            mensagem = "Erro ao salvar no banco de dados.";
+            sucesso = false;
+        }
+    }
 
     private void Voltar()
     {
