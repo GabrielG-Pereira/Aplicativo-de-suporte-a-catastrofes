@@ -1,27 +1,44 @@
-﻿@page "/demandas"
+﻿@page "/demandas/{PontoEventoId:guid}"
 @rendermode InteractiveServer
+@using Soteria.Sql
+@using Soteria.Sql.Models
 @inject NavigationManager Navigation
-
 
 <div class="page-container">
     <div class="content-wrapper">
         
         <div class="page-header">
             <SoteriaTitle Text="DEMANDAS DO PONTO" />
-            <SoteriaButton Text="Adicionar" Color="blue" OnClick="AdicionarDemanda" />
+            <SoteriaButton Text="Adicionar" Color="blue" OnClick="NavegarParaAdicionar" />
         </div>
 
-        <SoteriaTable Headers="@(new List<string> { "Demanda", "ID", "Descrição" })">
-            @foreach (var item in listaMock)
+        <SoteriaTable Headers="@(new List<string> { "Demanda", "ID", "Descrição", "Status", "Ações" })">
+            @if (listaDemandas == null)
             {
-                <tr>
-                    <td>@item.Nome</td>
-                    <td>@item.Id</td>
-                    <td>@item.Descricao</td>
-                    <td>
-                        <SoteriaButton Text="Ver mais" Color="yellow" OnClick="NavegarParaDetalhes" />
-                    </td>
-                </tr>
+                <tr><td colspan="5">Carregando demandas...</td></tr>
+            }
+            else if (listaDemandas.Count == 0)
+            {
+                <tr><td colspan="5">Nenhuma demanda registrada para este ponto.</td></tr>
+            }
+            else
+            {
+                @foreach (var item in listaDemandas)
+                {
+                    <tr>
+                        <td>@item.CategoriaNome</td>
+                        <td>@item.Id.ToString().Substring(0, 8)...</td>
+                        <td>@item.Descricao</td>
+                        <td>
+                            <span class="badge-status">@item.Status</span>
+                        </td>
+                        <td>
+                            <SoteriaButton Text="Ver mais"
+                                           Color="yellow"
+                                           OnClick="@(() => NavegarParaDetalhes(item.Id))" />
+                        </td>
+                    </tr>
+                }
             }
         </SoteriaTable>
 
@@ -29,31 +46,27 @@
 </div>
 
 @code {
+    [Parameter] public Guid PontoEventoId { get; set; }
+    private List<DemandaLista>? listaDemandas;
 
-    private void AdicionarDemanda()
+    protected override void OnInitialized()
     {
-        Navigation.NavigateTo("/adicionar-demanda");
+        CarregarDemandas();
     }
 
-    private void NavegarParaDetalhes()
+    private void CarregarDemandas()
     {
-        Navigation.NavigateTo("/alterar-demanda");
+        listaDemandas = Sql.ListarDemandasPorPonto(PontoEventoId);
     }
 
-    // Simulação de dados (Mock)
-    private List<DemandaItem> listaMock = new()
+    private void NavegarParaAdicionar()
     {
-        new DemandaItem { Nome = "Alimento", Id = "001", Descricao = "Leite em pó" },
-        new DemandaItem { Nome = "Higiene", Id = "001", Descricao = "Papel Higiênico" },
-        new DemandaItem { Nome = "Saúde", Id = "001", Descricao = "Remédio" },
-        new DemandaItem { Nome = "RH", Id = "001", Descricao = "Médico" }
-    };
-
-    public class DemandaItem
-    {
-        public string Nome { get; set; } = "";
-        public string Id { get; set; } = "";
-        public string Descricao { get; set; } = "";
+        // Passamos o ID do ponto para saber onde adicionar a nova demanda
+        Navigation.NavigateTo($"/adicionar-demanda/{PontoEventoId}");
     }
-   
+
+    private void NavegarParaDetalhes(Guid idDemanda)
+    {
+        Navigation.NavigateTo($"/alterar-demanda/{idDemanda}");
+    }
 }

@@ -1,5 +1,8 @@
-﻿@page "/alterar-demanda"
+﻿@page "/alterar-demanda/{Id:guid}"
+@using Soteria.Sql
+@using Soteria.Sql.Models
 @inject NavigationManager Navigation
+@rendermode InteractiveServer
 
 <div class="page-container">
     <div class="page-header">
@@ -10,65 +13,107 @@
         </div>
     </div>
 
-    <SoteriaSelect Label="Categoria" Options="categorias" @bind-Value="demanda.Categoria" IsDisabled="isReadOnly" />
-    <SoteriaInput Label="Descrição" @bind-Value="demanda.Descricao" Description="true" IsDisabled="isReadOnly" />
-    
-    <div class="page-inputs">
-        <SoteriaSelect Label="Status" Options="statusOptions" @bind-Value="demanda.Status" IsDisabled="isReadOnly" />
-        <SoteriaInput Label="Quantidade" @bind-Value="demanda.Quantidade" IsDisabled="isReadOnly" />
-    </div>
-    
+    @if (demanda == null)
+    {
+        <p>Carregando dados da demanda...</p>
+    }
+    else
+    {
+        <SoteriaSelect Label="Categoria"
+                       Options="@listaCategorias.Select(c => c.Nome).ToList()"
+                       @bind-Value="demanda.Categoria"
+                       IsDisabled="isReadOnly" />
 
-    <div class="form-footer">
-        <SoteriaButton Text="Salvar Alterações" Color="yellow" OnClick="Salvar" IsDisabled="isReadOnly" FullWidth="true" />
-        <SoteriaButton Text="Voltar" Color="outline" OnClick="Voltar" FullWidth="true" />
-    </div>
+        <SoteriaInput Label="Descrição"
+                      @bind-Value="demanda.Descricao"
+                      Description="true"
+                      IsDisabled="isReadOnly" />
+        
+        <div class="page-inputs" style="display: flex; gap: 20px; margin-top: 15px;">
+            <SoteriaSelect Label="Status"
+                           Options="statusOptions"
+                           @bind-Value="demanda.Status"
+                           IsDisabled="isReadOnly" />
+            
+            @* Se você salvou a quantidade dentro da descrição, este campo pode ser informativo ou omitido *@
+            <SoteriaInput Label="Quantidade" @bind-Value="quantidadeTemporaria" IsDisabled="isReadOnly" />
+        </div>
+
+        <div class="form-footer" style="margin-top: 30px; display: flex; gap: 10px;">
+            <SoteriaButton Text="Salvar Alterações" Color="yellow" OnClick="Salvar" IsDisabled="isReadOnly" FullWidth="true" />
+            <SoteriaButton Text="Voltar" Color="outline" OnClick="Voltar" FullWidth="true" />
+        </div>
+    }
 </div>
 
 @code {
+    [Parameter] public Guid Id { get; set; }
 
-    // 1. Modelo de dados (Simulando o que viria do banco)
-    private DemandaModel demanda = new();
-    private bool isReadOnly = true; // Começa bloqueado
-    private List<string> statusOptions = new() { "Ativo", "Encerrado", "Alerta Crítico" };
-    private List<string>  categorias = new() { "Alimentos", "Bebidas", "Higiene" };
+    private DemandaModel? demanda;
+    private List<CategoriaDemanda> listaCategorias = new();
+    private bool isReadOnly = true;
+    private string quantidadeTemporaria = ""; // Auxiliar
 
-    // 2. Simulação de carga de dados (Backend Mock)
+    // Opções baseadas no CHECK CONSTRAINT do SQL (Crítico, Médio, Estável)
+    private List<string> statusOptions = new() { "Crítico", "Médio", "Estável" };
+
     protected override void OnInitialized()
     {
-        // Aqui você faria a chamada ao Service/Banco
-        demanda = new DemandaModel
+        listaCategorias = Sql.ListarCategoriasDemanda();
+        demanda = Sql.BuscarDemandaPorId(Id);
+
+        if (demanda == null)
         {
-            Categoria = "Alimentos",
-            Descricao = "Fardo arroz 5kg",
-            Status = "Ativo",
-            Quantidade = "100"
-        };
+            Navigation.NavigateTo("/demandas");
+        }
     }
 
     private void HabilitarEdicao() => isReadOnly = false;
 
     private void Salvar()
     {
-        // Aqui enviaria o objeto 'evento' para o backend
-        Console.WriteLine($"Salvando: {demanda.Descricao}");
-        isReadOnly = true; // Bloqueia novamente após salvar
+        if (demanda != null)
+        {
+            // Busca o GUID da categoria baseado no nome selecionado
+            var catObj = listaCategorias.FirstOrDefault(c => c.Nome == demanda.Categoria);
+
+            if (catObj.Id != Guid.Empty)
+            {
+                bool sucesso = Sql.AtualizarDemanda(Id, catObj.Id, demanda.Descricao, demanda.Status);
+                if (sucesso)
+                {
+                    isReadOnly = true;
+                }
+            }
+        }
     }
 
     private void ConfirmarExclusao()
     {
-        Console.WriteLine("Demanda Apagado");
-        Navigation.NavigateTo("/demandas");
+        if (demanda != null)
+        {
+            bool deletado = Sql.DeletarDemanda(Id);
+            if (deletado)
+            {
+                Navigation.NavigateTo($"/demandas/{demanda.IdPontoEvento}");
+            }
+        }
     }
 
-    private void Voltar() => Navigation.NavigateTo("/demandas");
+    private void Voltar()
+    {
+        if (demanda != null)
+            Navigation.NavigateTo($"/demandas/{demanda.IdPontoEvento}");
+        else
+            Navigation.NavigateTo("/eventos-ativos");
+    }
 
-    // Classe auxiliar para o teste
     public class DemandaModel
     {
+        public Guid Id { get; set; }
+        public Guid IdPontoEvento { get; set; }
         public string Categoria { get; set; } = "";
         public string Descricao { get; set; } = "";
         public string Status { get; set; } = "";
-        public string Quantidade { get; set; } = "";
     }
 }
