@@ -1,59 +1,70 @@
 ﻿@page "/pontos"
 @layout SidebarLayout
+@using Soteria.Sql
+@using Soteria.Sql.Models
 @inject NavigationManager Navigation
-
+@rendermode InteractiveServer
 
 <div class="page-container">
     <div class="page-header">
         <SoteriaTitle Text="PONTOS DE COLETA ATIVOS" />
-        <SoteriaButton Text="Adicionar" Color="blue" OnClick="AdicionarEvento" />
+        <SoteriaButton Text="Adicionar" Color="blue" OnClick="AdicionarPonto" />
     </div>
     <div class="content-wrapper">
-        <SoteriaTable Headers="@(new List<string> { "Pontos", "ID", "Temporario" })">
-            @foreach (var item in listaMock)
+        <SoteriaTable Headers="@(new List<string> { "Ponto", "ID", "Temporário?", "Ações" })">
+            @if (listaPontos == null)
             {
-                <tr>
-                    <td>@item.Ponto</td>
-                    <td>@item.Id</td>
-                    <td>@item.Temporario</td>
-                    <td>
-                        <div class="button-group">
-                            <SoteriaButton Text="Ver mais" Color="yellow" FullWidth="true" OnClick="NavegarParaDetalhes" />
-                        </div>
-                    </td>
-                </tr>
+                <tr><td colspan="4">Carregando pontos...</td></tr>
+            }
+            else if (listaPontos.Count == 0)
+            {
+                <tr><td colspan="4">Nenhum ponto de coleta cadastrado.</td></tr>
+            }
+            else
+            {
+                @foreach (var item in listaPontos)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        @* Exibindo apenas parte do GUID para manter a tabela limpa *@
+                        <td>@item.Id.ToString().Substring(0, 8)...</td>
+                        <td>@(item.Temporario ? "Sim" : "Não")</td>
+                        <td>
+                            <div class="button-group">
+                                <SoteriaButton Text="Ver mais"
+                                               Color="yellow"
+                                               FullWidth="true"
+                                               OnClick="@(() => NavegarParaDetalhes(item.Id))" />
+                            </div>
+                        </td>
+                    </tr>
+                }
             }
         </SoteriaTable>
-
     </div>
 </div>
 
-
 @code {
+    private List<PontoColetaLista>? listaPontos;
 
-    private void AdicionarEvento()
+    protected override void OnInitialized()
+    {
+        CarregarDados();
+    }
+
+    private void CarregarDados()
+    {
+        listaPontos = Sql.ListarPontosColeta();
+    }
+
+    private void AdicionarPonto()
     {
         Navigation.NavigateTo("/adicionar-ponto");
     }
 
-    private void NavegarParaDetalhes()
+    private void NavegarParaDetalhes(Guid id)
     {
-        Navigation.NavigateTo("/alterar-ponto");
+        // Redireciona para a página de alteração passando o GUID do ponto
+        Navigation.NavigateTo($"/alterar-ponto/{id}");
     }
-
-    // Simulação de dados (Mock)
-    private List<PontoItem> listaMock = new()
-    {
-        new PontoItem { Ponto = "Ponto de Coleta 1", Id = 1, Temporario = false },
-        new PontoItem { Ponto = "Ponto de Coleta 2", Id = 2, Temporario = false },
-        new PontoItem { Ponto = "Ponto de Coleta 3", Id = 3, Temporario = true },
-    };
-
-    public class PontoItem
-    {
-        public string Ponto { get; set; } = "";
-        public int Id { get; set; } 
-        public bool Temporario { get; set; } = false;
-    }
-   
 }

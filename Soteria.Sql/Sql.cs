@@ -978,7 +978,7 @@ namespace Soteria.Sql
         }
 
 
-        public static EventoLista? BuscarEventoPorIdSoteriaAdmin(Guid id)
+        public static Evento? BuscarEventoPorIdSoteriaAdmin(Guid id)
         {
             try
             {
@@ -991,7 +991,7 @@ namespace Soteria.Sql
 
                 if (reader.Read())
                 {
-                    return new EventoLista
+                    return new Evento
                     {
                         Id = reader.GetGuid(0),
                         Nome = reader.GetString(1),
@@ -1037,6 +1037,34 @@ namespace Soteria.Sql
         }
 
 
+        public static List<PontoColetaLista> ListarPontosColeta()
+        {
+            List<PontoColetaLista> lista = new();
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
 
+                string sql = "SELECT id, nome, temporario FROM ponto_coleta ORDER BY nome";
+
+                using SqlCommand comando = new(sql, conexao);
+                using SqlDataReader reader = comando.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    lista.Add(new PontoColetaLista
+                    {
+                        Id = reader.GetGuid(0),
+                        Nome = reader.GetString(1),
+                        Temporario = reader.GetBoolean(2)
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao listar pontos de coleta: " + ex.Message);
+            }
+            return lista;
+        }
     }
 }
