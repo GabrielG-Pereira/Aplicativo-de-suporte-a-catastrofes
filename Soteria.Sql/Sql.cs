@@ -978,7 +978,7 @@ namespace Soteria.Sql
         }
 
 
-        public static Evento? BuscarEventoPorIdSoteriaAdmin(Guid id)
+        public static EventoLista? BuscarEventoPorIdSoteriaAdmin(Guid id)
         {
             try
             {
@@ -991,7 +991,7 @@ namespace Soteria.Sql
 
                 if (reader.Read())
                 {
-                    return new Evento
+                    return new EventoLista
                     {
                         Id = reader.GetGuid(0),
                         Nome = reader.GetString(1),
@@ -1065,6 +1065,213 @@ namespace Soteria.Sql
                 Console.WriteLine("Erro ao listar pontos de coleta: " + ex.Message);
             }
             return lista;
+        }
+
+        public static bool InserirPontoColeta(string nome, string endereco, string contato, bool temporario)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+
+                // Inserimos a localização como um ponto zero padrão (0,0)
+                string sql = @"
+            INSERT INTO dbo.ponto_coleta (nome, endereco, contato, temporario, localizacao)
+            VALUES (@nome, @endereco, @contato, @temporario, geography::Point(0, 0, 4326))";
+
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@nome", nome);
+                comando.Parameters.AddWithValue("@endereco", endereco);
+                comando.Parameters.AddWithValue("@contato", contato);
+                comando.Parameters.AddWithValue("@temporario", temporario);
+
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao inserir ponto de coleta: " + ex.Message);
+                return false;
+            }
+        }
+
+
+        public static bool AtualizarPonto(Guid id, string nome, string endereco, string contato, bool temporario)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "UPDATE ponto_coleta SET nome = @nome, endereco = @endereco, contato = @contato, temporario = @temporario WHERE id = @id";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@nome", nome);
+                comando.Parameters.AddWithValue("@endereco", endereco);
+                comando.Parameters.AddWithValue("@contato", contato);
+                comando.Parameters.AddWithValue("@temporario", temporario);
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch { return false; }
+        }
+
+        public static bool DeletarPonto(Guid id)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "DELETE FROM ponto_coleta WHERE id = @id";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch { return false; }
+        }
+
+        public static List<DemandaLista> ListarDemandasPorPonto(Guid idPontoEvento)
+        {
+            List<DemandaLista> lista = new();
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+
+                // Fazemos um JOIN para pegar o nome da categoria
+                string sql = @"
+            SELECT 
+                d.id, 
+                c.nome AS CategoriaNome, 
+                d.descricao, 
+                d.status 
+            FROM demanda d
+            INNER JOIN categoria_demanda c ON d.categoria = c.id
+            WHERE d.id_ponto_evento = @idPontoEvento";
+
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@idPontoEvento", idPontoEvento);
+
+                using SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    lista.Add(new DemandaLista
+                    {
+                        Id = reader.GetGuid(0),
+                        CategoriaNome = reader.GetString(1),
+                        Descricao = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                        Status = reader.GetString(3)
+                    });
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            return lista;
+        }
+
+        // Modelo para a categoria
+        public struct CategoriaDemanda
+        {
+            public Guid Id { get; set; }
+            public string Nome { get; set; }
+        }
+
+        // No Sql.cs:
+        public static List<CategoriaDemanda> ListarCategoriasDemanda()
+        {
+            List<CategoriaDemanda> lista = new();
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "SELECT id, nome FROM categoria_demanda ORDER BY nome";
+                using SqlCommand comando = new(sql, conexao);
+                using SqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    lista.Add(new CategoriaDemanda { Id = reader.GetGuid(0), Nome = reader.GetString(1) });
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            return lista;
+        }
+
+        public static bool InserirDemanda(Guid idPontoEvento, Guid idCategoria, string descricao, string status)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = @"INSERT INTO demanda (id_ponto_evento, categoria, descricao, status) 
+                       VALUES (@idPontoEvento, @categoria, @descricao, @status)";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@idPontoEvento", idPontoEvento);
+                comando.Parameters.AddWithValue("@categoria", idCategoria);
+                comando.Parameters.AddWithValue("@descricao", descricao);
+                comando.Parameters.AddWithValue("@status", status);
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); return false; }
+        }
+
+        public static DemandaModel? BuscarDemandaPorId(Guid id)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                // Join para pegar o nome da categoria e carregar no objeto
+                string sql = @"
+            SELECT d.id, d.id_ponto_evento, c.nome as CategoriaNome, d.descricao, d.status 
+            FROM demanda d 
+            INNER JOIN categoria_demanda c ON d.categoria = c.id 
+            WHERE d.id = @id";
+
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                using SqlDataReader reader = comando.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    return new DemandaModel
+                    {
+                        Id = reader.GetGuid(0),
+                        IdPontoEvento = reader.GetGuid(1),
+                        Categoria = reader.GetString(2),
+                        Descricao = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                        Status = reader.GetString(4)
+                    };
+                }
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+            return null;
+        }
+
+        public static bool AtualizarDemanda(Guid id, Guid idCategoria, string descricao, string status)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "UPDATE demanda SET categoria = @categoria, descricao = @descricao, status = @status WHERE id = @id";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                comando.Parameters.AddWithValue("@categoria", idCategoria);
+                comando.Parameters.AddWithValue("@descricao", descricao);
+                comando.Parameters.AddWithValue("@status", status);
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch { return false; }
+        }
+
+        public static bool DeletarDemanda(Guid id)
+        {
+            try
+            {
+                using SqlConnection conexao = new(connectionString);
+                conexao.Open();
+                string sql = "DELETE FROM demanda WHERE id = @id";
+                using SqlCommand comando = new(sql, conexao);
+                comando.Parameters.AddWithValue("@id", id);
+                return comando.ExecuteNonQuery() > 0;
+            }
+            catch { return false; }
         }
     }
 }
